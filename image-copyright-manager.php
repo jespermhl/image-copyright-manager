@@ -16,30 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Define plugin constants
 define( 'ICM_PLUGIN_FILE', __FILE__ );
 define( 'ICM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ICM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-// Load the main plugin class
 require_once ICM_PLUGIN_DIR . 'includes/class-icm-core.php';
 
-/**
- * Initialize the plugin
- */
 function icm_init() {
     global $icm_core;
     $icm_core = new ICM_Core();
 }
 
-// Initialize plugin
 add_action( 'plugins_loaded', 'icm_init' );
 
-/**
- * Activation hook
- */
 function icm_activate() {
-    // Set default options
     $default_settings = array(
         'display_text' => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
         'css_class' => 'icm-copyright-text'
@@ -49,10 +39,6 @@ function icm_activate() {
 }
 register_activation_hook( __FILE__, 'icm_activate' );
 
-/**
- * Deactivation hook
- */
 function icm_deactivate() {
-    // Clean up if needed
 }
 register_deactivation_hook( __FILE__, 'icm_deactivate' ); 
