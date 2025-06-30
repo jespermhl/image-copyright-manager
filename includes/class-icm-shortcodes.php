@@ -9,21 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Handle shortcodes for displaying copyright information
- */
 class ICM_Shortcodes {
     
-    /**
-     * Initialize shortcodes
-     */
     public function __construct() {
         add_shortcode( 'icm', array( $this, 'render_copyright_list' ) );
     }
     
-    /**
-     * Render the copyright list shortcode
-     */
     public function render_copyright_list( $atts ) {
         $atts = shortcode_atts( array(
             'orderby' => 'date',

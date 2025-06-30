@@ -9,22 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Handle plugin settings
- */
 class ICM_Settings {
     
-    /**
-     * Initialize settings
-     */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
         add_action( 'admin_init', array( $this, 'init_settings' ) );
     }
     
-    /**
-     * Add settings page to admin menu
-     */
     public function add_settings_page() {
         add_options_page(
             __( 'Image Copyright Manager', ICM_Core::TEXT_DOMAIN ),
@@ -35,9 +26,6 @@ class ICM_Settings {
         );
     }
     
-    /**
-     * Initialize settings
-     */
     public function init_settings() {
         register_setting( 'icm_settings', 'icm_settings', array( $this, 'sanitize_settings' ) );
         
@@ -65,9 +53,6 @@ class ICM_Settings {
         );
     }
     
-    /**
-     * Render settings page
-     */
     public function render_settings_page() {
         ?>
         <div class="wrap">
@@ -91,16 +76,10 @@ class ICM_Settings {
         <?php
     }
     
-    /**
-     * Render section description
-     */
     public function render_section_description() {
         echo '<p>' . esc_html__( 'Configure how copyright information is displayed on your website.', ICM_Core::TEXT_DOMAIN ) . '</p>';
     }
     
-    /**
-     * Render display text field
-     */
     public function render_display_text_field() {
         $settings = ICM_Core::get_settings();
         ?>
@@ -116,9 +95,6 @@ class ICM_Settings {
         <?php
     }
     
-    /**
-     * Render CSS class field
-     */
     public function render_css_class_field() {
         $settings = ICM_Core::get_settings();
         ?>
@@ -134,9 +110,6 @@ class ICM_Settings {
         <?php
     }
     
-    /**
-     * Sanitize settings
-     */
     public function sanitize_settings( $input ) {
         $sanitized = array();
         

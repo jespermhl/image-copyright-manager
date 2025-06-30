@@ -9,53 +9,30 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Main plugin class
- */
 class ICM_Core {
-    
-    /**
-     * Plugin version
-     */
+
     const VERSION = '1.0.5';
     
-    /**
-     * Plugin text domain
-     */
     const TEXT_DOMAIN = 'image-copyright-manager';
     
-    /**
-     * Initialize the plugin
-     */
     public function __construct() {
         $this->init_hooks();
     }
     
-    /**
-     * Initialize WordPress hooks
-     */
     private function init_hooks() {
         add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
         add_action( 'init', array( $this, 'init' ) );
     }
     
-    /**
-     * Initialize plugin
-     */
     public function init() {
-        // Load dependencies
         $this->load_dependencies();
         
-        // Initialize components
         new ICM_Meta_Boxes();
         new ICM_Shortcodes();
         new ICM_Settings();
         new ICM_Display();
     }
     
-    /**
-     * Load plugin textdomain
-     */
     public function load_textdomain() {
         load_plugin_textdomain(
             self::TEXT_DOMAIN,
@@ -64,9 +41,6 @@ class ICM_Core {
         );
     }
     
-    /**
-     * Load required files
-     */
     private function load_dependencies() {
         require_once ICM_PLUGIN_DIR . 'includes/class-icm-meta-boxes.php';
         require_once ICM_PLUGIN_DIR . 'includes/class-icm-shortcodes.php';
@@ -75,9 +49,6 @@ class ICM_Core {
         require_once ICM_PLUGIN_DIR . 'includes/class-icm-utils.php';
     }
     
-    /**
-     * Get plugin settings
-     */
     public static function get_settings() {
         $settings = get_option( 'icm_settings', array() );
         

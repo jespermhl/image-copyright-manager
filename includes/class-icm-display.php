@@ -9,22 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Handle automatic copyright display and styling
- */
+
 class ICM_Display {
     
-    /**
-     * Initialize display functionality
-     */
     public function __construct() {
         add_filter( 'the_content', array( $this, 'auto_display_copyright' ) );
         add_action( 'wp_head', array( $this, 'add_copyright_styles' ) );
     }
     
-    /**
-     * Automatically display copyright information under images
-     */
     public function auto_display_copyright( $content ) {
         $settings = ICM_Core::get_settings();
         
@@ -58,9 +50,6 @@ class ICM_Display {
         return $content;
     }
     
-    /**
-     * Add CSS styles for copyright text
-     */
     public function add_copyright_styles() {
         $settings = ICM_Core::get_settings();
         ?>

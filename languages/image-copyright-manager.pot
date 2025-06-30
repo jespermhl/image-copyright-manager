@@ -9,14 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-27T12:00:00+00:00\n"
+"POT-Creation-Date: 2025-06-30T00:02:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: image-copyright-manager\n"
 
 #. Plugin Name of the plugin
 #: image-copyright-manager.php
-#: image-copyright-manager.php:152
 msgid "Image Copyright Manager"
 msgstr ""
 
@@ -40,71 +39,6 @@ msgstr ""
 msgid "https://mahelwebdesign.com/"
 msgstr ""
 
-#: image-copyright-manager.php:29
 #: image-copyright-manager.php:44
-msgid "Copyright Information"
-msgstr ""
-
-#: image-copyright-manager.php:51
-msgid "Display copyright text under this image"
-msgstr ""
-
-#: image-copyright-manager.php:53
-msgid "The display format can be customized in Settings > Image Copyright. You can include HTML links in the copyright field."
-msgstr ""
-
-#: image-copyright-manager.php:50
-msgid "Enter copyright information. You can include links using HTML tags like &lt;a href=\"https://example.com\"&gt;Link Text&lt;/a&gt;"
-msgstr ""
-
-#: image-copyright-manager.php:95
-msgid "Image Sources"
-msgstr ""
-
-#: image-copyright-manager.php:96
-msgid "No image sources with copyright information found."
-msgstr ""
-
-#: image-copyright-manager.php:97
-msgid "Copyright:"
-msgstr ""
-
-#: image-copyright-manager.php:98
-msgid "View Media"
-msgstr ""
-
-#: image-copyright-manager.php:145
 msgid "Copyright: {copyright}"
-msgstr ""
-
-#: image-copyright-manager.php:153
-msgid "Image Copyright"
-msgstr ""
-
-#: image-copyright-manager.php:168
-msgid "Settings saved successfully!"
-msgstr ""
-
-#: image-copyright-manager.php:174
-msgid "Image Copyright Manager Settings"
-msgstr ""
-
-#: image-copyright-manager.php:179
-msgid "Display Text Format"
-msgstr ""
-
-#: image-copyright-manager.php:182
-msgid "Use {copyright} as placeholder for the actual copyright text"
-msgstr ""
-
-#: image-copyright-manager.php:186
-msgid "CSS Class"
-msgstr ""
-
-#: image-copyright-manager.php:189
-msgid "CSS class for styling the copyright text"
-msgstr ""
-
-#: image-copyright-manager.php:194
-msgid "Save Settings"
 msgstr ""

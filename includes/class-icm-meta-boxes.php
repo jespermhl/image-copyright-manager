@@ -9,14 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Handle meta boxes for copyright information
- */
 class ICM_Meta_Boxes {
     
-    /**
-     * Initialize the meta boxes
-     */
     public function __construct() {
         add_action( 'add_meta_boxes', array( $this, 'add_copyright_meta_box' ) );
         add_action( 'save_post', array( $this, 'save_copyright_data' ) );
@@ -24,9 +18,6 @@ class ICM_Meta_Boxes {
         add_action( 'add_attachment', array( $this, 'save_copyright_data' ) );
     }
     
-    /**
-     * Add copyright meta box to attachment screens
-     */
     public function add_copyright_meta_box() {
         $screens = array( 'attachment' );
         
@@ -42,9 +33,6 @@ class ICM_Meta_Boxes {
         }
     }
     
-    /**
-     * Render the copyright meta box
-     */
     public function render_copyright_meta_box( $post ) {
         wp_nonce_field( 'icm_save_copyright', 'icm_copyright_nonce' );
         
@@ -90,11 +78,7 @@ class ICM_Meta_Boxes {
         <?php
     }
     
-    /**
-     * Save copyright data
-     */
     public function save_copyright_data( $post_id ) {
-        // Security checks
         if ( ! isset( $_POST['icm_copyright_nonce'] ) || 
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['icm_copyright_nonce'] ) ), 'icm_save_copyright' ) ) {
             return;
@@ -108,7 +92,6 @@ class ICM_Meta_Boxes {
             return;
         }
         
-        // Save copyright text
         if ( isset( $_POST['icm_copyright_field'] ) ) {
             $allowed_html = array(
                 'a' => array(
@@ -129,7 +112,6 @@ class ICM_Meta_Boxes {
             update_post_meta( $post_id, '_icm_copyright', $copyright_data );
         }
         
-        // Save display option
         $display_copyright = isset( $_POST['icm_display_copyright'] ) ? '1' : '0';
         update_post_meta( $post_id, '_icm_display_copyright', $display_copyright );
     }
