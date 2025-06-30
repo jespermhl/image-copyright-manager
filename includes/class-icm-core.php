@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ICM_Core {
 
-    const VERSION = '1.0.5';
+    const VERSION = '1.0.6';
     
     const TEXT_DOMAIN = 'image-copyright-manager';
     
@@ -44,7 +44,7 @@ class ICM_Core {
         $settings = get_option( 'icm_settings', array() );
         
         $defaults = array(
-            'display_text' => __( 'Copyright: {copyright}', self::TEXT_DOMAIN ),
+            'display_text' => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
             'css_class' => 'icm-copyright-text'
         );
         

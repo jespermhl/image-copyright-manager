@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,15 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 
 == Changelog ==
 
+= 1.0.6 =
+* Fixed WordPress coding standards violations for text domain usage
+* Replaced constant references with literal strings for translation functions
+* Created missing languages directory and POT file for translations
+* Resolved ownership verification requirements
+* Updated plugin header to include required "Requires at least" and "Requires PHP" headers
+* Removed deprecated load_plugin_textdomain() function call
+* Ensured proper function prefixing to avoid naming collisions
+
 = 1.0.5 =
 * Enhanced shortcode with customizable heading and text parameters
 * Changed default heading to "Image Sources"
@@ -139,6 +148,9 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 * Security improvements
 
 == Upgrade Notice ==
+
+= 1.0.6 =
+This update addresses WordPress Plugin Directory submission requirements and resolves ownership verification issues. The plugin now includes all required headers and follows WordPress coding standards for directory submission.
 
 = 1.0.5 =
 This update enhances the shortcode with new customization options. The default heading is now "Image Sources" and you can customize all text elements using new parameters like heading, heading_tag, no_sources_text, copyright_label, and view_media_text.

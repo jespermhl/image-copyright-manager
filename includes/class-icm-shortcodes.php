@@ -19,11 +19,11 @@ class ICM_Shortcodes {
         $atts = shortcode_atts( array(
             'orderby' => 'date',
             'order' => 'DESC',
-            'heading' => __( 'Image Sources', ICM_Core::TEXT_DOMAIN ),
+            'heading' => __( 'Image Sources', 'image-copyright-manager' ),
             'heading_tag' => 'h3',
-            'no_sources_text' => __( 'No image sources with copyright information found.', ICM_Core::TEXT_DOMAIN ),
-            'copyright_label' => __( 'Copyright:', ICM_Core::TEXT_DOMAIN ),
-            'view_media_text' => __( 'View Media', ICM_Core::TEXT_DOMAIN )
+            'no_sources_text' => __( 'No image sources with copyright information found.', 'image-copyright-manager' ),
+            'copyright_label' => __( 'Copyright:', 'image-copyright-manager' ),
+            'view_media_text' => __( 'View Media', 'image-copyright-manager' )
         ), $atts );
         
         $args = array(

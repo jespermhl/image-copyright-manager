@@ -24,7 +24,7 @@ class ICM_Meta_Boxes {
         foreach ( $screens as $screen ) {
             add_meta_box(
                 'icm_copyright_box',
-                __( 'Copyright Information', ICM_Core::TEXT_DOMAIN ),
+                __( 'Copyright Information', 'image-copyright-manager' ),
                 array( $this, 'render_copyright_meta_box' ),
                 $screen,
                 'normal',
@@ -42,7 +42,7 @@ class ICM_Meta_Boxes {
         <table class="form-table">
             <tr>
                 <th scope="row">
-                    <label for="icm_copyright_field"><?php esc_html_e( 'Copyright Information', ICM_Core::TEXT_DOMAIN ); ?></label>
+                    <label for="icm_copyright_field"><?php esc_html_e( 'Copyright Information', 'image-copyright-manager' ); ?></label>
                 </th>
                 <td>
                     <textarea 
@@ -50,15 +50,15 @@ class ICM_Meta_Boxes {
                         name="icm_copyright_field" 
                         class="widefat" 
                         rows="3" 
-                        placeholder="<?php esc_attr_e( 'Enter copyright information. You can include links using HTML tags like &lt;a href="https://example.com"&gt;Link Text&lt;/a&gt;', ICM_Core::TEXT_DOMAIN ); ?>"
+                        placeholder="<?php esc_attr_e( 'Enter copyright information. You can include links using HTML tags like &lt;a href="https://example.com"&gt;Link Text&lt;/a&gt;', 'image-copyright-manager' ); ?>"
                     ><?php echo esc_textarea( $copyright ); ?></textarea>
                     <p class="description">
-                        <?php esc_html_e( 'You can include HTML links and basic formatting in the copyright text.', ICM_Core::TEXT_DOMAIN ); ?>
+                        <?php esc_html_e( 'You can include HTML links and basic formatting in the copyright text.', 'image-copyright-manager' ); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><?php esc_html_e( 'Display Options', ICM_Core::TEXT_DOMAIN ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Display Options', 'image-copyright-manager' ); ?></th>
                 <td>
                     <label>
                         <input 
@@ -67,10 +67,10 @@ class ICM_Meta_Boxes {
                             value="1" 
                             <?php checked( $display_copyright, '1' ); ?> 
                         />
-                        <?php esc_html_e( 'Display copyright text under this image', ICM_Core::TEXT_DOMAIN ); ?>
+                        <?php esc_html_e( 'Display copyright text under this image', 'image-copyright-manager' ); ?>
                     </label>
                     <p class="description">
-                        <?php esc_html_e( 'The display format can be customized in Settings > Image Copyright.', ICM_Core::TEXT_DOMAIN ); ?>
+                        <?php esc_html_e( 'The display format can be customized in Settings > Image Copyright.', 'image-copyright-manager' ); ?>
                     </p>
                 </td>
             </tr>

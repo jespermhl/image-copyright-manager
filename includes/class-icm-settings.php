@@ -18,8 +18,8 @@ class ICM_Settings {
     
     public function add_settings_page() {
         add_options_page(
-            __( 'Image Copyright Manager', ICM_Core::TEXT_DOMAIN ),
-            __( 'Image Copyright', ICM_Core::TEXT_DOMAIN ),
+            __( 'Image Copyright Manager', 'image-copyright-manager' ),
+            __( 'Image Copyright', 'image-copyright-manager' ),
             'manage_options',
             'image-copyright-manager',
             array( $this, 'render_settings_page' )
@@ -31,14 +31,14 @@ class ICM_Settings {
         
         add_settings_section(
             'icm_general_section',
-            __( 'General Settings', ICM_Core::TEXT_DOMAIN ),
+            __( 'General Settings', 'image-copyright-manager' ),
             array( $this, 'render_section_description' ),
             'image-copyright-manager'
         );
         
         add_settings_field(
             'display_text',
-            __( 'Display Text Format', ICM_Core::TEXT_DOMAIN ),
+            __( 'Display Text Format', 'image-copyright-manager' ),
             array( $this, 'render_display_text_field' ),
             'image-copyright-manager',
             'icm_general_section'
@@ -46,7 +46,7 @@ class ICM_Settings {
         
         add_settings_field(
             'css_class',
-            __( 'CSS Class', ICM_Core::TEXT_DOMAIN ),
+            __( 'CSS Class', 'image-copyright-manager' ),
             array( $this, 'render_css_class_field' ),
             'image-copyright-manager',
             'icm_general_section'
@@ -56,7 +56,7 @@ class ICM_Settings {
     public function render_settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'Image Copyright Manager Settings', ICM_Core::TEXT_DOMAIN ); ?></h1>
+            <h1><?php esc_html_e( 'Image Copyright Manager Settings', 'image-copyright-manager' ); ?></h1>
             
             <form method="post" action="options.php">
                 <?php
@@ -67,17 +67,17 @@ class ICM_Settings {
             </form>
             
             <div class="icm-settings-help">
-                <h3><?php esc_html_e( 'Usage Instructions', ICM_Core::TEXT_DOMAIN ); ?></h3>
-                <p><?php esc_html_e( '1. Go to Media Library and edit any image to add copyright information.', ICM_Core::TEXT_DOMAIN ); ?></p>
-                <p><?php esc_html_e( '2. Use the [icm] shortcode to display all copyrighted images.', ICM_Core::TEXT_DOMAIN ); ?></p>
-                <p><?php esc_html_e( '3. Copyright information will automatically display under images when enabled.', ICM_Core::TEXT_DOMAIN ); ?></p>
+                <h3><?php esc_html_e( 'Usage Instructions', 'image-copyright-manager' ); ?></h3>
+                <p><?php esc_html_e( '1. Go to Media Library and edit any image to add copyright information.', 'image-copyright-manager' ); ?></p>
+                <p><?php esc_html_e( '2. Use the [icm] shortcode to display all copyrighted images.', 'image-copyright-manager' ); ?></p>
+                <p><?php esc_html_e( '3. Copyright information will automatically display under images when enabled.', 'image-copyright-manager' ); ?></p>
             </div>
         </div>
         <?php
     }
     
     public function render_section_description() {
-        echo '<p>' . esc_html__( 'Configure how copyright information is displayed on your website.', ICM_Core::TEXT_DOMAIN ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure how copyright information is displayed on your website.', 'image-copyright-manager' ) . '</p>';
     }
     
     public function render_display_text_field() {
@@ -90,7 +90,7 @@ class ICM_Settings {
             class="regular-text" 
         />
         <p class="description">
-            <?php esc_html_e( 'Use {copyright} as placeholder for the actual copyright text', ICM_Core::TEXT_DOMAIN ); ?>
+            <?php esc_html_e( 'Use {copyright} as placeholder for the actual copyright text', 'image-copyright-manager' ); ?>
         </p>
         <?php
     }
@@ -105,7 +105,7 @@ class ICM_Settings {
             class="regular-text" 
         />
         <p class="description">
-            <?php esc_html_e( 'CSS class for styling the copyright text', ICM_Core::TEXT_DOMAIN ); ?>
+            <?php esc_html_e( 'CSS class for styling the copyright text', 'image-copyright-manager' ); ?>
         </p>
         <?php
     }
