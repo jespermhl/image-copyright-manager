@@ -20,7 +20,6 @@ class ICM_Core {
     }
     
     private function init_hooks() {
-        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
         add_action( 'init', array( $this, 'init' ) );
     }
     
@@ -31,14 +30,6 @@ class ICM_Core {
         new ICM_Shortcodes();
         new ICM_Settings();
         new ICM_Display();
-    }
-    
-    public function load_textdomain() {
-        load_plugin_textdomain(
-            self::TEXT_DOMAIN,
-            false,
-            dirname( plugin_basename( ICM_PLUGIN_FILE ) ) . '/languages'
-        );
     }
     
     private function load_dependencies() {

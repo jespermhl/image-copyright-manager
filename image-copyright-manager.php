@@ -1,15 +1,18 @@
 <?php
 /**
- * Plugin Name: Image Copyright Manager
- * Plugin URI:  https://mahelwebdesign.com/image-copyright-manager/
- * Description: Adds a custom field for copyright information to WordPress media.
- * Version:     1.0.5
- * Author:      Mahel Webdesign
- * Author URI:  https://mahelwebdesign.com/
- * License:     GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: image-copyright-manager
- * Domain Path: /languages
+ * Plugin Name:         Image Copyright Manager
+ * Plugin URI:          https://mahelwebdesign.com/image-copyright-manager/
+ * Description:         Adds a custom field for copyright information to WordPress media.
+ * Version:             1.0.5
+ * Requires at least:   6.4
+ * Requires PHP:        7.4
+ * Author:              Mahel Webdesign
+ * Author URI:          https://mahelwebdesign.com/
+ * Contributors:        jespermhl
+ * License:             GPL2
+ * License URI:         https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:         image-copyright-manager
+ * Domain Path:         /languages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
