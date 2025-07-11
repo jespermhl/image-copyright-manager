@@ -2,6 +2,19 @@
 
 A WordPress plugin that adds copyright information management to media attachments with automatic display capabilities.
 
+---
+
+**New in 1.1.0:**
+- Major performance boost: Copyright info is now stored in a custom database table for fast and scalable queries
+- Removed all taxonomy and meta_query code for copyright info
+- Shortcode and admin UI now use the new table structure
+- Improved caching for copyright queries
+- Codebase fully cleaned of legacy logic
+- Updated translation template (POT) file
+- Various code quality and standards improvements
+
+---
+
 ## Description
 
 Image Copyright Manager allows you to add copyright information to your WordPress media files and automatically display this information under images on your website. The plugin provides a user-friendly interface for managing copyright data and includes customizable display options.
@@ -12,7 +25,9 @@ Image Copyright Manager allows you to add copyright information to your WordPres
 - **HTML Support**: Include links and basic HTML formatting in copyright text
 - **Auto-Display**: Automatically show copyright information under images
 - **Customizable Format**: Configure display text format and CSS styling
-- **Shortcode Support**: Display all copyrighted images using `[icm]` shortcode
+- **Shortcode Support**: Display all copyrighted images using `[imagcoma]` shortcode
+- **Performance**: Copyright info is now stored in a custom table for fast queries (since 1.1.0)
+- **Improved Caching**: Faster display of copyright lists (since 1.1.0)
 - **Multilingual**: Translation-ready with German translations included
 - **Settings Page**: Easy configuration through WordPress admin
 
@@ -42,10 +57,10 @@ The plugin automatically displays copyright information under images when:
 
 ### Shortcode
 
-Use the `[icm]` shortcode to display all images with copyright information:
+Use the `[imagcoma]` shortcode to display all images with copyright information:
 
 ```
-[icm]
+[imagcoma]
 ```
 
 Shortcode parameters:
@@ -59,7 +74,7 @@ Shortcode parameters:
 
 Example:
 ```
-[icm orderby="title" order="ASC" heading="Image Credits"]
+[imagcoma orderby="title" order="ASC" heading="Image Credits"]
 ```
 
 ### Customization
@@ -69,6 +84,18 @@ Go to Settings > Image Copyright to customize:
 - CSS class for styling
 
 ## Changelog
+
+### 1.1.0
+- Major performance improvement: Copyright information is now stored in a custom database table for fast and scalable queries.
+- Removed all taxonomy-based code and meta_query usage for copyright info.
+- Shortcode and admin UI now use the new table structure.
+- Improved caching for copyright queries.
+- Codebase fully cleaned of legacy taxonomy and meta_query logic.
+- Updated translation template (POT) file.
+- Various code quality and standards improvements.
+
+### 1.0.7
+- Changed all function, class, and shortcode prefixes to `imagcoma` for improved uniqueness and consistency.
 
 ### 1.0.5
 - Initial release

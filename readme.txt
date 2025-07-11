@@ -1,10 +1,10 @@
 === Image Copyright Manager ===
-Contributors: mahelwebdesign
+Contributors: jespermhl
 Tags: media, copyright, images, attachments, metadata
-Requires at least: 5.0
+Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,16 +26,16 @@ Image Copyright Manager adds a custom field for copyright information to WordPre
 = Shortcode Usage =
 
 Display all media with copyright information:
-`[icm]`
+`[imagcoma]`
 
 Customize the display:
-`[icm orderby="title" order="ASC"]`
+`[imagcoma orderby="title" order="ASC"]`
 
 Customize heading and texts:
-`[icm heading="Image Sources" heading_tag="h2"]`
+`[imagcoma heading="Image Sources" heading_tag="h2"]`
 
 Fully customized example:
-`[icm heading="Photo Credits" heading_tag="h4" no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]`
+`[imagcoma heading="Photo Credits" heading_tag="h4" no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]`
 
 = Shortcode Parameters =
 
@@ -65,16 +65,16 @@ Fully customized example:
 
 = How do I display media with copyright information? =
 
-Use the shortcode `[icm]` anywhere in your posts or pages to display all media that has copyright information.
+Use the shortcode `[imagcoma]` anywhere in your posts or pages to display all media that has copyright information.
 
 = Can I customize the shortcode output? =
 
 Yes, you can use various parameters to customize the display:
 
-* Basic sorting: `[icm orderby="title"]`
-* Custom heading: `[icm heading="Photo Credits" heading_tag="h2"]`
-* Custom texts: `[icm no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]`
-* Fully customized: `[icm heading="Image Sources" heading_tag="h4" no_sources_text="No sources available" copyright_label="Credits:" view_media_text="View Image"]`
+* Basic sorting: `[imagcoma orderby="title"]`
+* Custom heading: `[imagcoma heading="Photo Credits" heading_tag="h2"]`
+* Custom texts: `[imagcoma no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]`
+* Fully customized: `[imagcoma heading="Image Sources" heading_tag="h4" no_sources_text="No sources available" copyright_label="Credits:" view_media_text="View Image"]`
 
 = Can I include links in the copyright information? =
 
@@ -93,6 +93,18 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 2. Shortcode output displaying media with copyright information
 
 == Changelog ==
+
+= 1.1.0 =
+* Major performance improvement: Copyright information is now stored in a custom database table for fast and scalable queries.
+* Removed all taxonomy-based code and meta_query usage for copyright info.
+* Shortcode and admin UI now use the new table structure.
+* Improved caching for copyright queries.
+* Codebase fully cleaned of legacy taxonomy and meta_query logic.
+* Updated translation template (POT) file.
+* Various code quality and standards improvements.
+
+= 1.0.7 =
+* Changed all function, class, and shortcode prefixes to `imagcoma` for improved uniqueness and consistency.
 
 = 1.0.6 =
 * Fixed WordPress coding standards violations for text domain usage
@@ -148,6 +160,9 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 * Security improvements
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+This update migrates copyright information to a custom database table for much better performance and scalability. All old taxonomy code has been removed. Please back up your database before upgrading.
 
 = 1.0.6 =
 This update addresses WordPress Plugin Directory submission requirements and resolves ownership verification issues. The plugin now includes all required headers and follows WordPress coding standards for directory submission.
