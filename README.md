@@ -4,14 +4,10 @@ A WordPress plugin that adds copyright information management to media attachmen
 
 ---
 
-**New in 1.1.0:**
-- Major performance boost: Copyright info is now stored in a custom database table for fast and scalable queries
-- Removed all taxonomy and meta_query code for copyright info
-- Shortcode and admin UI now use the new table structure
-- Improved caching for copyright queries
-- Codebase fully cleaned of legacy logic
+**New in 1.1.1:**
+- Bug fixes and minor improvements
 - Updated translation template (POT) file
-- Various code quality and standards improvements
+- Code quality improvements
 
 ---
 
@@ -84,6 +80,10 @@ Go to Settings > Image Copyright to customize:
 - CSS class for styling
 
 ## Changelog
+
+### 1.1.1
+- Bug fixes and minor improvements
+- Code quality improvements
 
 ### 1.1.0
 - Major performance improvement: Copyright information is now stored in a custom database table for fast and scalable queries.

@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,11 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 
 == Changelog ==
 
+= 1.1.1 =
+* Bug fixes and minor improvements
+* Updated translation template (POT) file
+* Code quality improvements
+
 = 1.1.0 =
 * Major performance improvement: Copyright information is now stored in a custom database table for fast and scalable queries.
 * Removed all taxonomy-based code and meta_query usage for copyright info.
@@ -160,6 +165,9 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 * Security improvements
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.
 
 = 1.1.0 =
 This update migrates copyright information to a custom database table for much better performance and scalability. All old taxonomy code has been removed. Please back up your database before upgrading.
