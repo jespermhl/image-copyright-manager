@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class ICM_Utils {
+class IMAGCOMA_Utils {
     
     public static function get_attachment_id_from_img_tag( $img_tag ) {
         if ( preg_match( '/wp-image-(\d+)/', $img_tag, $matches ) ) {
@@ -32,8 +32,8 @@ class ICM_Utils {
     }
     
     public static function get_copyright_info( $attachment_id ) {
-        $copyright = get_post_meta( $attachment_id, '_icm_copyright', true );
-        $display_copyright = get_post_meta( $attachment_id, '_icm_display_copyright', true );
+        $copyright = get_post_meta( $attachment_id, '_imagcoma_copyright', true );
+        $display_copyright = get_post_meta( $attachment_id, '_imagcoma_display_copyright', true );
         
         return array(
             'copyright' => $copyright,
@@ -43,7 +43,7 @@ class ICM_Utils {
     
     public static function format_copyright_text( $copyright, $settings = null ) {
         if ( ! $settings ) {
-            $settings = ICM_Core::get_settings();
+            $settings = IMAGCOMA_Core::get_settings();
         }
         
         return str_replace( '{copyright}', $copyright, $settings['display_text'] );
@@ -73,10 +73,44 @@ class ICM_Utils {
     }
     
     public static function get_version() {
-        return ICM_Core::VERSION;
+        return IMAGCOMA_Core::VERSION;
     }
     
     public static function get_text_domain() {
-        return ICM_Core::TEXT_DOMAIN;
+        return IMAGCOMA_Core::TEXT_DOMAIN;
+    }
+
+    public static function save_copyright_info( $attachment_id, $copyright_text ) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'imagcoma_copyright';
+
+        $wpdb->replace(
+            $table_name,
+            array(
+                'attachment_id'   => $attachment_id,
+                'copyright_text'  => $copyright_text,
+            ),
+            array(
+                '%d',
+                '%s',
+            )
+        );
+    }
+
+    public static function get_attachments_with_copyright() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'imagcoma_copyright';
+  
+        $cache_key = 'imagcoma_attachments_with_copyright';
+        $results = wp_cache_get( $cache_key, 'imagcoma' );
+        if ( false === $results ) {
+            $sql = $wpdb->prepare(
+                "SELECT attachment_id, copyright_text FROM $table_name WHERE copyright_text != %s",
+                ''
+            );
+            $results = $wpdb->get_results( $sql );
+            wp_cache_set( $cache_key, $results, 'imagcoma', HOUR_IN_SECONDS );
+        }
+        return $results;
     }
 } 

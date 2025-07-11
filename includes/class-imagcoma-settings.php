@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class ICM_Settings {
+class IMAGCOMA_Settings {
     
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
@@ -27,10 +27,10 @@ class ICM_Settings {
     }
     
     public function init_settings() {
-        register_setting( 'icm_settings', 'icm_settings', array( $this, 'sanitize_settings' ) );
+        register_setting( 'imagcoma_settings', 'imagcoma_settings', array( $this, 'sanitize_settings' ) );
         
         add_settings_section(
-            'icm_general_section',
+            'imagcoma_general_section',
             __( 'General Settings', 'image-copyright-manager' ),
             array( $this, 'render_section_description' ),
             'image-copyright-manager'
@@ -41,15 +41,7 @@ class ICM_Settings {
             __( 'Display Text Format', 'image-copyright-manager' ),
             array( $this, 'render_display_text_field' ),
             'image-copyright-manager',
-            'icm_general_section'
-        );
-        
-        add_settings_field(
-            'css_class',
-            __( 'CSS Class', 'image-copyright-manager' ),
-            array( $this, 'render_css_class_field' ),
-            'image-copyright-manager',
-            'icm_general_section'
+            'imagcoma_general_section'
         );
     }
     
@@ -60,16 +52,16 @@ class ICM_Settings {
             
             <form method="post" action="options.php">
                 <?php
-                settings_fields( 'icm_settings' );
+                settings_fields( 'imagcoma_settings' );
                 do_settings_sections( 'image-copyright-manager' );
                 submit_button();
                 ?>
             </form>
             
-            <div class="icm-settings-help">
+            <div class="imagcoma-settings-help">
                 <h3><?php esc_html_e( 'Usage Instructions', 'image-copyright-manager' ); ?></h3>
                 <p><?php esc_html_e( '1. Go to Media Library and edit any image to add copyright information.', 'image-copyright-manager' ); ?></p>
-                <p><?php esc_html_e( '2. Use the [icm] shortcode to display all copyrighted images.', 'image-copyright-manager' ); ?></p>
+                <p><?php esc_html_e( '2. Use the [imagcoma] shortcode to display all copyrighted images.', 'image-copyright-manager' ); ?></p>
                 <p><?php esc_html_e( '3. Copyright information will automatically display under images when enabled.', 'image-copyright-manager' ); ?></p>
             </div>
         </div>
@@ -81,31 +73,16 @@ class ICM_Settings {
     }
     
     public function render_display_text_field() {
-        $settings = ICM_Core::get_settings();
+        $settings = IMAGCOMA_Core::get_settings();
         ?>
         <input 
             type="text" 
-            name="icm_settings[display_text]" 
+            name="imagcoma_settings[display_text]" 
             value="<?php echo esc_attr( $settings['display_text'] ); ?>" 
             class="regular-text" 
         />
         <p class="description">
             <?php esc_html_e( 'Use {copyright} as placeholder for the actual copyright text', 'image-copyright-manager' ); ?>
-        </p>
-        <?php
-    }
-    
-    public function render_css_class_field() {
-        $settings = ICM_Core::get_settings();
-        ?>
-        <input 
-            type="text" 
-            name="icm_settings[css_class]" 
-            value="<?php echo esc_attr( $settings['css_class'] ); ?>" 
-            class="regular-text" 
-        />
-        <p class="description">
-            <?php esc_html_e( 'CSS class for styling the copyright text', 'image-copyright-manager' ); ?>
         </p>
         <?php
     }
@@ -116,11 +93,7 @@ class ICM_Settings {
         if ( isset( $input['display_text'] ) ) {
             $sanitized['display_text'] = sanitize_text_field( $input['display_text'] );
         }
-        
-        if ( isset( $input['css_class'] ) ) {
-            $sanitized['css_class'] = sanitize_html_class( $input['css_class'] );
-        }
-        
+
         return $sanitized;
     }
 } 
