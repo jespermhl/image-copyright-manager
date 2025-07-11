@@ -30,19 +30,20 @@ class IMAGCOMA_Display {
                 return $img_tag;
             }
             
-            $display_copyright = get_post_meta( $attachment_id, '_imagcoma_display_copyright', true );
-            if ( $display_copyright !== '1' ) {
+            $copyright_data = IMAGCOMA_Utils::get_copyright_info( $attachment_id );
+            $display_copyright = $copyright_data['display_copyright'] ?? false;
+            if ( ! $display_copyright ) {
                 return $img_tag;
             }
             
-            $copyright = get_post_meta( $attachment_id, '_imagcoma_copyright', true );
+            $copyright = $copyright_data['copyright'] ?? '';
             
             if ( empty( $copyright ) ) {
                 return $img_tag;
             }
             
             $copyright_text = str_replace( '{copyright}', $copyright, $settings['display_text'] );
-            $copyright_html = '<div class="' . esc_attr( $settings['css_class'] ) . '">' . wp_kses_post( $copyright_text ) . '</div>';
+            $copyright_html = '<div class="imagcoma-copyright-text">' . wp_kses_post( $copyright_text ) . '</div>';
             
             return $img_tag . $copyright_html;
         }, $content );
