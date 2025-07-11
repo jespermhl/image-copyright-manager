@@ -36,8 +36,9 @@ class IMAGCOMA_Meta_Boxes {
     public function render_copyright_meta_box( $post ) {
         wp_nonce_field( 'imagcoma_save_copyright', 'imagcoma_copyright_nonce' );
         
-        $copyright = get_post_meta( $post->ID, '_imagcoma_copyright', true );
-        $display_copyright = get_post_meta( $post->ID, '_imagcoma_display_copyright', true );
+        $copyright_data = IMAGCOMA_Utils::get_copyright_info( $post->ID );
+        $copyright = $copyright_data['copyright'] ?? '';
+        $display_copyright = $copyright_data['display_copyright'] ?? false;
         ?>
         <table class="form-table">
             <tr>
@@ -65,7 +66,7 @@ class IMAGCOMA_Meta_Boxes {
                             type="checkbox" 
                             name="imagcoma_display_copyright" 
                             value="1" 
-                            <?php checked( $display_copyright, '1' ); ?> 
+                            <?php checked( $display_copyright, true ); ?> 
                         />
                         <?php esc_html_e( 'Display copyright text under this image', 'image-copyright-manager' ); ?>
                     </label>

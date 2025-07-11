@@ -32,7 +32,9 @@ class IMAGCOMA_Utils {
     }
     
     public static function get_copyright_info( $attachment_id ) {
-        $copyright = get_post_meta( $attachment_id, '_imagcoma_copyright', true );
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'imagcoma_copyright';
+        $copyright = $wpdb->get_var( $wpdb->prepare( "SELECT copyright_text FROM $table_name WHERE attachment_id = %d", $attachment_id ) );
         $display_copyright = get_post_meta( $attachment_id, '_imagcoma_display_copyright', true );
         
         return array(
