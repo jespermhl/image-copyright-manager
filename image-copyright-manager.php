@@ -3,7 +3,7 @@
  * Plugin Name:         Image Copyright Manager
  * Plugin URI:          https://mahelwebdesign.com/image-copyright-manager/
  * Description:         Adds a custom field for copyright information to WordPress media.
- * Version:             1.1.1
+ * Version:             1.1.2
  * Requires at least:   6.4
  * Requires PHP:        7.4
  * Author:              Mahel Webdesign

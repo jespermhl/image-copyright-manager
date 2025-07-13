@@ -1,4 +1,4 @@
-.icm-copyright-text {
+.imagcoma-copyright-text {
     font-size: 0.9em;
     color: #666;
     margin: 5px 0;
@@ -6,16 +6,16 @@
     text-align: center;
 }
 
-.icm-media-list {
+.imagcoma-media-list {
     margin: 20px 0;
 }
 
-.icm-media-list ul {
+.imagcoma-media-list ul {
     list-style: none;
     padding: 0;
 }
 
-.icm-media-list li {
+.imagcoma-media-list li {
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ddd;

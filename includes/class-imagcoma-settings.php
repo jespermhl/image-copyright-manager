@@ -61,7 +61,7 @@ class IMAGCOMA_Settings {
             <div class="imagcoma-settings-help">
                 <h3><?php esc_html_e( 'Usage Instructions', 'image-copyright-manager' ); ?></h3>
                 <p><?php esc_html_e( '1. Go to Media Library and edit any image to add copyright information.', 'image-copyright-manager' ); ?></p>
-                <p><?php esc_html_e( '2. Use the [imagcoma] shortcode to display all copyrighted images.', 'image-copyright-manager' ); ?></p>
+                <p><?php esc_html_e( '2. Use the [imagcoma] shortcode to display all images with copyright information.', 'image-copyright-manager' ); ?></p>
                 <p><?php esc_html_e( '3. Copyright information will automatically display under images when enabled.', 'image-copyright-manager' ); ?></p>
             </div>
         </div>

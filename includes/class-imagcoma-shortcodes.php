@@ -21,7 +21,7 @@ class IMAGCOMA_Shortcodes {
             'order' => 'DESC',
             'heading' => __( 'Image Sources', 'image-copyright-manager' ),
             'heading_tag' => 'h3',
-            'no_sources_text' => __( 'No image sources with copyright information found.', 'image-copyright-manager' ),
+            'no_sources_text' => __( 'No images with copyright information found.', 'image-copyright-manager' ),
             'copyright_label' => __( 'Copyright:', 'image-copyright-manager' ),
             'view_media_text' => __( 'View Media', 'image-copyright-manager' )
         ), $atts );

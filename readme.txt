@@ -26,16 +26,16 @@ Image Copyright Manager adds a custom field for copyright information to WordPre
 = Shortcode Usage =
 
 Display all media with copyright information:
-`[imagcoma]`
+<pre>[imagcoma]</pre>
 
 Customize the display:
-`[imagcoma orderby="title" order="ASC"]`
+<pre>[imagcoma orderby="title" order="ASC"]</pre>
 
 Customize heading and texts:
-`[imagcoma heading="Image Sources" heading_tag="h2"]`
+<pre>[imagcoma heading="Image Sources" heading_tag="h2"]</pre>
 
 Fully customized example:
-`[imagcoma heading="Photo Credits" heading_tag="h4" no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]`
+<pre>[imagcoma heading="Photo Credits" heading_tag="h4" no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]</pre>
 
 = Shortcode Parameters =
 
@@ -65,23 +65,15 @@ Fully customized example:
 
 = How do I display media with copyright information? =
 
-Use the shortcode `[imagcoma]` anywhere in your posts or pages to display all media that has copyright information.
+Use the shortcode `[imagcoma]` anywhere in your posts or pages to display all media that has copyright information. For details on customizing the output, see the Shortcode Usage and Shortcode Parameters sections above.
 
 = Can I customize the shortcode output? =
 
-Yes, you can use various parameters to customize the display:
-
-* Basic sorting: `[imagcoma orderby="title"]`
-* Custom heading: `[imagcoma heading="Photo Credits" heading_tag="h2"]`
-* Custom texts: `[imagcoma no_sources_text="No images found" copyright_label="Source:" view_media_text="View Image"]`
-* Fully customized: `[imagcoma heading="Image Sources" heading_tag="h4" no_sources_text="No sources available" copyright_label="Credits:" view_media_text="View Image"]`
+Yes, you can use various parameters to customize the display. See the Shortcode Usage and Shortcode Parameters sections above for all available options.
 
 = Can I include links in the copyright information? =
 
-Yes! The copyright field supports HTML links. You can use HTML tags like:
-`<a href="https://example.com" target="_blank">Link Text</a>`
-
-This allows you to link to the original source, photographer's website, or any relevant URL.
+Yes! The copyright field supports HTML links, so you can link to the original source, photographer's website, or any relevant URL.
 
 = Is this plugin translation ready? =
 
@@ -94,77 +86,22 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 
 == Changelog ==
 
-= 1.1.1 =
-* Bug fixes and minor improvements
-* Updated translation template (POT) file
-* Code quality improvements
+= 1.1.2 =
+* Fixed bugs and made minor improvements
+* Updated the translation template (POT) file
+* Improved code quality
+* Fixed CSS class name mismatch between PHP code and CSS file (imagcoma-copyright-text vs icm-copyright-text)
+* Fixed CSS class name mismatch for media list (imagcoma-media-list vs icm-media-list)
+* Updated CSS selectors to match the actual class names used in PHP code
+* Improved code consistency by aligning CSS class names with PHP implementation
+* Enhanced maintainability by ensuring CSS and PHP use consistent naming conventions
 
-= 1.1.0 =
-* Major performance improvement: Copyright information is now stored in a custom database table for fast and scalable queries.
-* Removed all taxonomy-based code and meta_query usage for copyright info.
-* Shortcode and admin UI now use the new table structure.
-* Improved caching for copyright queries.
-* Codebase fully cleaned of legacy taxonomy and meta_query logic.
-* Updated translation template (POT) file.
-* Various code quality and standards improvements.
-
-= 1.0.7 =
-* Changed all function, class, and shortcode prefixes to `imagcoma` for improved uniqueness and consistency.
-
-= 1.0.6 =
-* Fixed WordPress coding standards violations for text domain usage
-* Replaced constant references with literal strings for translation functions
-* Created missing languages directory and POT file for translations
-* Resolved ownership verification requirements
-* Updated plugin header to include required "Requires at least" and "Requires PHP" headers
-* Removed deprecated load_plugin_textdomain() function call
-* Ensured proper function prefixing to avoid naming collisions
-
-= 1.0.5 =
-* Enhanced shortcode with customizable heading and text parameters
-* Changed default heading to "Image Sources"
-* Added parameters: heading, heading_tag, no_sources_text, copyright_label, view_media_text
-* Improved shortcode flexibility for different use cases
-* Updated documentation with new parameter examples
-* Added support for HTML links in copyright information
-* Changed copyright field from text input to textarea for better link editing
-* Added secure HTML sanitization for links and basic formatting
-
-= 1.0.4 =
-* Fixed translation file naming convention (WordPress standard)
-* Improved translation loading reliability
-* Cleaned up debug code
-
-= 1.0.3 =
-* Added German translation (de_DE)
-* Fixed translation loading issues for existing settings
-* Added automatic translation refresh for stored settings
-* Added manual translation refresh button in settings
-* Improved text domain loading with debug logging
-
-= 1.0.2 =
-* Added per-image copyright display option
-* Added global settings page (Settings > Image Copyright)
-* Added customizable display text format with {copyright} placeholder
-* Added customizable CSS class for styling
-* Improved user interface with individual image controls
-* Enhanced translation support for new features
-
-= 1.0.1 =
-* Fixed text domain consistency issues
-* Changed function prefixes from wpimc to icm for better code organization
-* Updated shortcode from [wpimc] to [icm]
-* Improved translation file naming and structure
-* Updated meta keys for better consistency
-
-= 1.0.0 =
-* Initial release
-* Add copyright field to media attachments
-* Shortcode functionality
-* Translation support
-* Security improvements
+Please refer to the CHANGELOG.txt file for the complete changelog.
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.
 
 = 1.1.1 =
 This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.

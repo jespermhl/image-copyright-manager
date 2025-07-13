@@ -1,0 +1,114 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.1.2] - 2025-01-27
+### Fixed
+- Fixed CSS class name mismatch between PHP code and CSS file (imagcoma-copyright-text vs icm-copyright-text)
+- Fixed CSS class name mismatch for media list (imagcoma-media-list vs icm-media-list)
+- Updated CSS selectors to match the actual class names used in PHP code
+
+### Changed
+- Improved code consistency by aligning CSS class names with PHP implementation
+- Enhanced maintainability by ensuring CSS and PHP use consistent naming conventions
+
+## [1.1.1] - 2025-07-13
+### Fixed
+- Fixed various minor bugs.
+- Improved reliability of translation string loading.
+
+### Changed
+- Updated translation template (POT) file.
+- Improved code quality and maintainability.
+
+## [1.1.0] - 2025-07-10
+### Changed
+- **IMPORTANT**: Migrated copyright information to a custom database table for improved performance and scalability. Please back up your database before upgrading.
+- Removed all taxonomy-based code and meta_query usage for copyright information.
+- Shortcode and admin UI now use the new table structure.
+- Improved caching for copyright queries.
+- Cleaned codebase of legacy taxonomy and meta_query logic.
+- Updated translation template (POT) file.
+- Various code quality and standards improvements.
+
+## [1.0.7] - 2025-07-07
+### Changed
+- Changed all function, class, and shortcode prefixes to `imagcoma` for improved uniqueness and consistency.
+
+## [1.0.6] - 2025-07-04
+### Fixed
+- Fixed WordPress coding standards violations for text domain usage.
+- Resolved ownership verification requirements.
+
+### Changed
+- Replaced constant references with literal strings for translation functions.
+- Created missing languages directory and POT file for translations.
+- Updated plugin header to include required "Requires at least" and "Requires PHP" headers.
+- Removed deprecated `load_plugin_textdomain()` function call.
+- Ensured proper function prefixing to avoid naming collisions.
+
+## [1.0.5] - 2025-07-01
+### Added
+- Added customizable heading and text parameters to the shortcode.
+- Added parameters: `heading`, `heading_tag`, `no_sources_text`, `copyright_label`, `view_media_text`.
+- Added support for HTML links in copyright information.
+- Added secure HTML sanitization for links and basic formatting.
+
+### Changed
+- Changed default heading to "Image Sources".
+- Improved shortcode flexibility for different use cases.
+- Updated documentation with new parameter examples.
+- Changed copyright field from text input to textarea for better link editing.
+
+## [1.0.4] - 2025-06-28
+### Fixed
+- Fixed translation file naming convention to match WordPress standards.
+- Improved translation loading reliability.
+
+### Changed
+- Cleaned up debug code.
+
+## [1.0.3] - 2025-06-25
+### Added
+- Added German translation (`de_DE`).
+- Added automatic translation refresh for stored settings.
+- Added manual translation refresh button in settings.
+
+### Fixed
+- Fixed translation loading issues for existing settings.
+
+### Changed
+- Improved text domain loading with debug logging.
+
+## [1.0.2] - 2025-06-22
+### Added
+- Added per-image copyright display option.
+- Added global settings page (Settings > Image Copyright).
+- Added customizable display text format with `{copyright}` placeholder.
+- Added customizable CSS class for styling.
+- Enhanced translation support for new features.
+
+### Changed
+- Improved user interface with individual image controls.
+
+## [1.0.1] - 2025-06-19
+### Fixed
+- Fixed text domain consistency issues.
+
+### Changed
+- Changed function prefixes from `wpimc` to `icm` for better code organization.
+- Updated shortcode from `[wpimc]` to `[icm]`.
+- Improved translation file naming and structure.
+- Updated meta keys for better consistency.
+
+## [1.0.0] - 2025-06-16
+### Added
+- Initial release.
+- Added copyright field to media attachments.
+- Added shortcode functionality.
+- Added translation support.
+
+### Security
+- Security improvements.

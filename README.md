@@ -4,10 +4,10 @@ A WordPress plugin that adds copyright information management to media attachmen
 
 ---
 
-**New in 1.1.1:**
-- Bug fixes and minor improvements
-- Updated translation template (POT) file
-- Code quality improvements
+**New in 1.1.2:**
+- Fixed bugs and made minor improvements
+- Updated the translation template (POT) file
+- Improved code quality
 
 ---
 
@@ -78,32 +78,6 @@ Example:
 Go to Settings > Image Copyright to customize:
 - Display text format (use `{copyright}` placeholder)
 - CSS class for styling
-
-## Changelog
-
-### 1.1.1
-- Bug fixes and minor improvements
-- Code quality improvements
-
-### 1.1.0
-- Major performance improvement: Copyright information is now stored in a custom database table for fast and scalable queries.
-- Removed all taxonomy-based code and meta_query usage for copyright info.
-- Shortcode and admin UI now use the new table structure.
-- Improved caching for copyright queries.
-- Codebase fully cleaned of legacy taxonomy and meta_query logic.
-- Updated translation template (POT) file.
-- Various code quality and standards improvements.
-
-### 1.0.7
-- Changed all function, class, and shortcode prefixes to `imagcoma` for improved uniqueness and consistency.
-
-### 1.0.5
-- Initial release
-- Copyright field for media attachments
-- Auto-display functionality
-- Shortcode support
-- Settings page
-- German translations
 
 ## Requirements
 

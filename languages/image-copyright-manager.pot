@@ -1,20 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Image Copyright Manager
+# Copyright (C) 2025 Mahel Webdesign
+# This file is distributed under the same license as the Image Copyright Manager package.
+# Mahel Webdesign <info@mahelwebdesign.com>, 2025.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Image Copyright Manager 1.1.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Image Copyright Manager 1.1.2\n"
+"Report-Msgid-Bugs-To: info@mahelwebdesign.com\n"
 "POT-Creation-Date: 2025-01-27 12:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Last-Translator: Mahel Webdesign <info@mahelwebdesign.com>\n"
+"Language-Team: English <en@li.org>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: includes/class-imagcoma-shortcodes.php:22
