@@ -4,10 +4,9 @@ A WordPress plugin that adds copyright information management to media attachmen
 
 ---
 
-**New in 1.1.2:**
-- Fixed bugs and made minor improvements
-- Updated the translation template (POT) file
-- Improved code quality
+**New in 1.1.3:**
+- Added CSS toggle setting in admin panel (Settings → Image Copyright)
+- CSS is now conditionally loaded based on user preference
 
 ---
 
@@ -21,6 +20,7 @@ Image Copyright Manager allows you to add copyright information to your WordPres
 - **HTML Support**: Include links and basic HTML formatting in copyright text
 - **Auto-Display**: Automatically show copyright information under images
 - **Customizable Format**: Configure display text format and CSS styling
+- **CSS Styling Control**: Activate or deactivate custom CSS styling for copyright information (since 1.1.3)
 - **Shortcode Support**: Display all copyrighted images using `[imagcoma]` shortcode
 - **Performance**: Copyright info is now stored in a custom table for fast queries (since 1.1.0)
 - **Improved Caching**: Faster display of copyright lists (since 1.1.0)

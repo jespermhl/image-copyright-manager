@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,19 +86,20 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 
 == Changelog ==
 
-= 1.1.2 =
-* Fixed bugs and made minor improvements
-* Updated the translation template (POT) file
-* Improved code quality
-* Fixed CSS class name mismatch between PHP code and CSS file (imagcoma-copyright-text vs icm-copyright-text)
-* Fixed CSS class name mismatch for media list (imagcoma-media-list vs icm-media-list)
-* Updated CSS selectors to match the actual class names used in PHP code
-* Improved code consistency by aligning CSS class names with PHP implementation
-* Enhanced maintainability by ensuring CSS and PHP use consistent naming conventions
+= 1.1.3 =
+- Added CSS toggle setting in admin panel (Settings → Image Copyright)
+- Added ability to enable/disable custom CSS styling for copyright information
+- Added checkbox control for "Enable CSS Styling" option
+- CSS is now conditionally loaded based on user preference
+- When CSS is disabled, copyright information displays with browser default styling
+- Improved user control over plugin styling behavior
 
 Please refer to the CHANGELOG.txt file for the complete changelog.
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+This update adds a CSS toggle setting and improves user control over plugin styling behavior.
 
 = 1.1.2 =
 This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.

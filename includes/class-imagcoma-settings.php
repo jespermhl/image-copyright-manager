@@ -43,6 +43,14 @@ class IMAGCOMA_Settings {
             'image-copyright-manager',
             'imagcoma_general_section'
         );
+        
+        add_settings_field(
+            'enable_css',
+            __( 'Enable CSS Styling', 'image-copyright-manager' ),
+            array( $this, 'render_enable_css_field' ),
+            'image-copyright-manager',
+            'imagcoma_general_section'
+        );
     }
     
     public function render_settings_page() {
@@ -87,11 +95,35 @@ class IMAGCOMA_Settings {
         <?php
     }
     
+    public function render_enable_css_field() {
+        $settings = IMAGCOMA_Core::get_settings();
+        ?>
+        <label for="imagcoma_settings[enable_css]">
+            <input 
+                type="checkbox" 
+                name="imagcoma_settings[enable_css]" 
+                value="1" 
+                <?php checked( $settings['enable_css'], 1 ); ?>
+            />
+            <?php esc_html_e( 'Enable CSS styling for copyright information.', 'image-copyright-manager' ); ?>
+        </label>
+        <p class="description">
+            <?php esc_html_e( 'When disabled, copyright information will be displayed without custom styling.', 'image-copyright-manager' ); ?>
+        </p>
+        <?php
+    }
+    
     public function sanitize_settings( $input ) {
         $sanitized = array();
         
         if ( isset( $input['display_text'] ) ) {
             $sanitized['display_text'] = sanitize_text_field( $input['display_text'] );
+        }
+
+        if ( isset( $input['enable_css'] ) ) {
+            $sanitized['enable_css'] = 1;
+        } else {
+            $sanitized['enable_css'] = 0;
         }
 
         return $sanitized;

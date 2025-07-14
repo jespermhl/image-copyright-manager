@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.2] - 2025-01-27
+## [1.1.3] - 2025-07-14
+### Added
+- Added CSS toggle setting in admin panel (Settings → Image Copyright)
+- Added ability to enable/disable custom CSS styling for copyright information
+- Added checkbox control for "Enable CSS Styling" option
+
+### Changed
+- CSS is now conditionally loaded based on user preference
+- When CSS is disabled, copyright information displays with browser default styling
+- Improved user control over plugin styling behavior
+
+## [1.1.2] - 2025-07-13
 ### Fixed
 - Fixed CSS class name mismatch between PHP code and CSS file (imagcoma-copyright-text vs icm-copyright-text)
 - Fixed CSS class name mismatch for media list (imagcoma-media-list vs icm-media-list)

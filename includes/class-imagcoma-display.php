@@ -52,6 +52,10 @@ class IMAGCOMA_Display {
     }
     
     public function enqueue_styles() {
-        wp_enqueue_style( 'imagcoma-copyright-styles', IMAGCOMA_PLUGIN_URL . 'includes/css/copyright-styles.css', array(), IMAGCOMA_Core::VERSION );
+        $settings = IMAGCOMA_Core::get_settings();
+        
+        if ( $settings['enable_css'] ) {
+            wp_enqueue_style( 'imagcoma-copyright-styles', IMAGCOMA_PLUGIN_URL . 'includes/css/copyright-styles.css', array(), IMAGCOMA_Core::VERSION );
+        }
     }
 } 
