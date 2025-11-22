@@ -15,6 +15,8 @@ class IMAGCOMA_Admin_Columns {
 		add_filter( 'manage_media_columns', array( $this, 'add_copyright_column' ) );
 		add_action( 'manage_media_custom_column', array( $this, 'display_copyright_column' ), 10, 2 );
 		add_filter( 'manage_upload_sortable_columns', array( $this, 'register_sortable_column' ) );
+		add_filter( 'posts_join_paged', array( $this, 'copyright_column_join' ), 10, 2 );
+		add_filter( 'posts_orderby', array( $this, 'copyright_column_orderby' ), 10, 2 );
 	}
 
 	/**
@@ -56,9 +58,50 @@ class IMAGCOMA_Admin_Columns {
 	 * @return array Modified sortable columns.
 	 */
 	public function register_sortable_column( $columns ) {
-		// Note: Sorting by custom table data requires more complex query modification
-		// For now, we just register it, but actual sorting logic would need 'request' filter
-		// $columns['imagcoma_copyright'] = 'imagcoma_copyright';
+		$columns['imagcoma_copyright'] = 'imagcoma_copyright';
 		return $columns;
+	}
+
+	/**
+	 * Join the custom table when sorting by copyright
+	 *
+	 * @param string   $join  The JOIN clause.
+	 * @param WP_Query $query The current WP_Query instance.
+	 * @return string Modified JOIN clause.
+	 */
+	public function copyright_column_join( $join, $query ) {
+		if ( ! is_admin() || ! $query->is_main_query() ) {
+			return $join;
+		}
+
+		if ( 'imagcoma_copyright' === $query->get( 'orderby' ) ) {
+			global $wpdb;
+			$table_name = $wpdb->prefix . 'imagcoma_copyright';
+			$join      .= " LEFT JOIN $table_name ON $wpdb->posts.ID = $table_name.attachment_id";
+		}
+
+		return $join;
+	}
+
+	/**
+	 * Order by the custom table column
+	 *
+	 * @param string   $orderby The ORDER BY clause.
+	 * @param WP_Query $query   The current WP_Query instance.
+	 * @return string Modified ORDER BY clause.
+	 */
+	public function copyright_column_orderby( $orderby, $query ) {
+		if ( ! is_admin() || ! $query->is_main_query() ) {
+			return $orderby;
+		}
+
+		if ( 'imagcoma_copyright' === $query->get( 'orderby' ) ) {
+			global $wpdb;
+			$table_name = $wpdb->prefix . 'imagcoma_copyright';
+			$order      = $query->get( 'order' ) ? $query->get( 'order' ) : 'ASC';
+			$orderby    = "$table_name.copyright_text $order";
+		}
+
+		return $orderby;
 	}
 }

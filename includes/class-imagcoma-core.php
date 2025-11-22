@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Core {
 
-    const VERSION = '1.2.1';
+    const VERSION = '1.2.2';
     
     const TEXT_DOMAIN = 'image-copyright-manager';
     

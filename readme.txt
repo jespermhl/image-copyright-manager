@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,10 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 2. Shortcode output displaying media with copyright information
 
 == Changelog ==
+
+= 1.2.2 =
+- Added sortable Copyright column to Media Library list view
+- Improved admin interface for managing copyright information
 
 = 1.2.1 =
 - Fixed build process to exclude development files from the production zip.
