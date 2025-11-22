@@ -1,0 +1,107 @@
+# Copyright (C) 2025 Image Copyright Manager
+# This file is distributed under the same license as the Image Copyright Manager package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Image Copyright Manager\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-11-22 14:37+0000\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../image-copyright-manager.php:37, ../includes/class-imagcoma-core.php:47
+msgid "Copyright: {copyright}"
+msgstr ""
+
+#: ../includes/class-imagcoma-meta-boxes.php:25
+msgid "Copyright Info"
+msgstr ""
+
+#: ../includes/class-imagcoma-meta-boxes.php:28
+msgid "Enter copyright information. HTML links are allowed."
+msgstr ""
+
+#: ../includes/class-imagcoma-meta-boxes.php:34
+msgid "Display Copyright"
+msgstr ""
+
+#: ../includes/class-imagcoma-meta-boxes.php:36
+msgid "Display copyright text under this image"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:21
+msgid "Image Copyright Manager"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:22
+msgid "Image Copyright"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:34
+msgid "General Settings"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:41
+msgid "Display Text Format"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:49
+msgid "Enable CSS Styling"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:59
+msgid "Image Copyright Manager Settings"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:70
+msgid "Usage Instructions"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:71
+msgid "1. Go to Media Library and edit any image to add copyright information."
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:72
+msgid "2. Use the [imagcoma] shortcode to display all images with copyright information."
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:73
+msgid "3. Copyright information will automatically display under images when enabled."
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:80
+msgid "Configure how copyright information is displayed on your website."
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:93
+msgid "Use {copyright} as placeholder for the actual copyright text"
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:108
+msgid "Enable CSS styling for copyright information."
+msgstr ""
+
+#: ../includes/class-imagcoma-settings.php:111
+msgid "When disabled, copyright information will be displayed without custom styling."
+msgstr ""
+
+#: ../includes/class-imagcoma-shortcodes.php:22
+msgid "Image Sources"
+msgstr ""
+
+#: ../includes/class-imagcoma-shortcodes.php:24
+msgid "No images with copyright information found."
+msgstr ""
+
+#: ../includes/class-imagcoma-shortcodes.php:25
+msgid "Copyright:"
+msgstr ""
+
+#: ../includes/class-imagcoma-shortcodes.php:26
+msgid "View Media"
+msgstr ""

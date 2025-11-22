@@ -1,0 +1,24 @@
+{
+    "name": "image-copyright-manager",
+    "version": "1.2.1",
+    "description": "Adds a custom field for copyright information to WordPress media.",
+    "main": "image-copyright-manager.php",
+    "scripts": {
+        "build": "wp-scripts plugin-zip",
+        "makepot": "wp-pot --src '**/*.php' --dest-file 'languages/image-copyright-manager.pot' --package 'Image Copyright Manager' --domain 'image-copyright-manager'",
+        "deploy": "./bin/deploy.sh",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "wordpress",
+        "plugin",
+        "copyright",
+        "image"
+    ],
+    "author": "Mahel Webdesign",
+    "license": "GPL-2.0-or-later",
+    "devDependencies": {
+        "@wordpress/scripts": "^26.0.0",
+        "wp-pot-cli": "^1.5.0"
+    }
+}

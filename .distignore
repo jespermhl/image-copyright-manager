@@ -1,0 +1,28 @@
+# Development files and directories
+.git
+.github
+.gitignore
+.distignore
+.editorconfig
+.eslintrc
+.stylelintrc
+.prettierrc
+composer.json
+composer.lock
+package.json
+package-lock.json
+pnpm-lock.yaml
+node_modules
+bin
+tests
+phpunit.xml.dist
+README.md
+CHANGELOG.md
+
+# Source files (if you have a src directory, otherwise adjust)
+src
+webpack.config.js
+
+# OS generated files
+.DS_Store
+Thumbs.db
