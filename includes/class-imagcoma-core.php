@@ -30,6 +30,7 @@ class IMAGCOMA_Core {
         new IMAGCOMA_Shortcodes();
         new IMAGCOMA_Settings();
         new IMAGCOMA_Display();
+        new IMAGCOMA_Admin_Columns();
     }
     
     private function load_dependencies() {
@@ -38,6 +39,7 @@ class IMAGCOMA_Core {
         require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-settings.php';
         require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-display.php';
         require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-utils.php';
+        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-admin-columns.php';
     }
     
     public static function get_settings() {
