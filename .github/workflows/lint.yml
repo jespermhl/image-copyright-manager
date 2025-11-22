@@ -17,10 +17,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 10
 
     - name: Install dependencies
-      run: npm install -g pnpm && pnpm install
+      run: pnpm install
 
     # Assuming you might add lint scripts later, or if you have them.
     # For now, we'll just check if the build works as a basic sanity check.
