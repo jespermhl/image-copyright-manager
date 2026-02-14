@@ -81,8 +81,8 @@ class IMAGCOMA_Display {
         $internal_errors = libxml_use_internal_errors( true );
         
         $dom = new DOMDocument();
-        // Hack to load HTML with UTF-8 encoding
-        $dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+        // Hack to load HTML with UTF-8 encoding without using deprecated mb_convert_encoding
+        $dom->loadHTML( '<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
         
         $images = $dom->getElementsByTagName( 'img' );
         
@@ -132,7 +132,7 @@ class IMAGCOMA_Display {
             // We need to handle HTML in copyright text safely
             $safe_html = wp_kses_post( $copyright_text );
             $temp_dom = new DOMDocument();
-            @$temp_dom->loadHTML( mb_convert_encoding( '<div>' . $safe_html . '</div>', 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+            @$temp_dom->loadHTML( '<?xml encoding="UTF-8"><div>' . $safe_html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
             $container = $temp_dom->getElementsByTagName( 'div' )->item( 0 );
             if ( $container ) {
                 foreach ( $container->childNodes as $node ) {
