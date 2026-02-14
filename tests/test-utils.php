@@ -19,6 +19,9 @@ class UtilsTest extends WP_UnitTestCase {
 
 		$img_tag = '<img src="test.jpg" data-attachment-id="456">';
 		$this->assertEquals( 456, IMAGCOMA_Utils::get_attachment_id_from_img_tag( $img_tag ) );
+
+		$img_tag = '<img src="no-id.jpg">';
+		$this->assertFalse( IMAGCOMA_Utils::get_attachment_id_from_img_tag( $img_tag ) );
 	}
 
 	/**

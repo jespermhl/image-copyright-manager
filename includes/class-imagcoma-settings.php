@@ -19,7 +19,7 @@ class IMAGCOMA_Settings {
      */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
-        add_action( 'admin_init', array( $this, 'register_settings' ) );
+        add_action( 'admin_init', array( $this, 'init_settings' ) );
     }
     
     /**
@@ -35,6 +35,9 @@ class IMAGCOMA_Settings {
         );
     }
     
+    /**
+     * Registers plugin settings and fields.
+     */
     public function init_settings() {
         register_setting( 'imagcoma_settings', 'imagcoma_settings', array( $this, 'sanitize_settings' ) );
         
@@ -70,6 +73,9 @@ class IMAGCOMA_Settings {
         );
     }
     
+    /**
+     * Renders the settings page HTML.
+     */
     public function render_settings_page() {
         ?>
         <div class="wrap">
@@ -93,10 +99,16 @@ class IMAGCOMA_Settings {
         <?php
     }
     
+    /**
+     * Renders the description for the general settings section.
+     */
     public function render_section_description() {
         echo '<p>' . esc_html__( 'Configure how copyright information is displayed on your website.', 'image-copyright-manager' ) . '</p>';
     }
     
+    /**
+     * Renders the display text format input field.
+     */
     public function render_display_text_field() {
         $settings = IMAGCOMA_Core::get_settings();
         ?>
@@ -112,6 +124,9 @@ class IMAGCOMA_Settings {
         <?php
     }
     
+    /**
+     * Renders the enable CSS styling checkbox field.
+     */
     public function render_enable_css_field() {
         $settings = IMAGCOMA_Core::get_settings();
         ?>
@@ -131,6 +146,9 @@ class IMAGCOMA_Settings {
         <?php
     }
 
+    /**
+     * Renders the enable JSON-LD SEO checkbox field.
+     */
     public function render_enable_json_ld_field() {
         $settings = IMAGCOMA_Core::get_settings();
         ?>
@@ -150,6 +168,12 @@ class IMAGCOMA_Settings {
         <?php
     }
     
+    /**
+     * Sanitizes settings input before saving to the database.
+     *
+     * @param array $input Raw settings input.
+     * @return array Sanitized settings.
+     */
     public function sanitize_settings( $input ) {
         $sanitized = array();
         

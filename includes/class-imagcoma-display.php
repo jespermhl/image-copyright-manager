@@ -13,6 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class IMAGCOMA_Display {
     
     public static $processed_attachments = array();
+    
+    /**
+     * Track which attachment IDs have already been emitted in JSON-LD.
+     *
+     * @var array
+     */
+    private static $emitted_ids = array();
 
     /**
      * Adds an attachment ID to the list of processed images for JSON-LD.
@@ -181,9 +188,13 @@ class IMAGCOMA_Display {
         $json_data = array();
 
         foreach ( $attachments as $attachment_id ) {
+            if ( in_array( $attachment_id, self::$emitted_ids ) ) {
+                continue;
+            }
             $data = $this->get_image_schema_data( $attachment_id );
             if ( $data ) {
                 $json_data[] = $data;
+                self::$emitted_ids[] = $attachment_id;
             }
         }
 
@@ -213,6 +224,7 @@ class IMAGCOMA_Display {
                 echo "\n" . '<script type="application/ld+json">' . "\n";
                 echo wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_PRETTY_PRINT );
                 echo "\n" . '</script>' . "\n";
+                self::$emitted_ids[] = $attachment_id;
             }
         }
     }

@@ -114,22 +114,7 @@ class IMAGCOMA_Meta_Boxes {
      */
     public function save_copyright_data( $post, $attachment ) {
         if ( isset( $attachment['imagcoma_copyright'] ) ) {
-            $allowed_html = array(
-                'a' => array(
-                    'href' => array(),
-                    'title' => array(),
-                    'target' => array(),
-                    'rel' => array()
-                ),
-                'br' => array(),
-                'em' => array(),
-                'strong' => array(),
-                'span' => array(
-                    'class' => array()
-                )
-            );
-            
-            $copyright_data = wp_kses( wp_unslash( $attachment['imagcoma_copyright'] ), $allowed_html );
+            $copyright_data = IMAGCOMA_Utils::sanitize_copyright_html( wp_unslash( $attachment['imagcoma_copyright'] ) );
             $creator = isset( $attachment['imagcoma_creator'] ) ? sanitize_text_field( wp_unslash( $attachment['imagcoma_creator'] ) ) : '';
             $copyright_notice = isset( $attachment['imagcoma_copyright_notice'] ) ? sanitize_text_field( wp_unslash( $attachment['imagcoma_copyright_notice'] ) ) : '';
             $credit_text = isset( $attachment['imagcoma_credit_text'] ) ? sanitize_text_field( wp_unslash( $attachment['imagcoma_credit_text'] ) ) : '';

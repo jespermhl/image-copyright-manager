@@ -65,7 +65,7 @@ class IMAGCOMA_Utils {
             'display_copyright'   => $display_copyright === '1'
         );
 
-        wp_cache_set( $cache_key, $data, 'imagcoma' );
+        wp_cache_set( $cache_key, $data, 'imagcoma', HOUR_IN_SECONDS );
 
         return $data;
     }

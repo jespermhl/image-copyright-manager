@@ -40,6 +40,12 @@ class IMAGCOMA_Shortcodes {
             return '<p>' . esc_html( $atts['no_sources_text'] ) . '</p>';
         }
         
+        // Validate heading_tag
+        $allowed_headings = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+        if ( ! in_array( strtolower( $atts['heading_tag'] ), $allowed_headings ) ) {
+            $atts['heading_tag'] = 'h3'; // Fallback to default
+        }
+        
         $output = '<div class="imagcoma-media-list">';
         $output .= '<' . esc_attr( $atts['heading_tag'] ) . '>' . esc_html( $atts['heading'] ) . '</' . esc_attr( $atts['heading_tag'] ) . '>';
         $output .= '<ul>';

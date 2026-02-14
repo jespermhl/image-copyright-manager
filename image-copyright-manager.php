@@ -60,15 +60,9 @@ if ( ! function_exists( 'imagcoma_init' ) ) {
  * @since 1.0.0
  */
 if ( ! function_exists( 'imagcoma_activate' ) ) {
-    register_activation_hook( __FILE__, 'imagcoma_activate' );
     function imagcoma_activate() {
         // Set default settings
-        $default_settings = array(
-            'display_text'   => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
-            'enable_css'     => 1,
-            'enable_json_ld' => 1
-        );
-        add_option( 'imagcoma_settings', $default_settings );
+        add_option( 'imagcoma_settings', IMAGCOMA_Core::get_default_settings() );
 
         // Initial table creation
         if ( function_exists( 'imagcoma_create_copyright_table' ) ) {
@@ -78,6 +72,7 @@ if ( ! function_exists( 'imagcoma_activate' ) ) {
         // Set version
         update_option( 'imagcoma_version', IMAGCOMA_Core::VERSION );
     }
+    register_activation_hook( __FILE__, 'imagcoma_activate' );
 }
 
 /**

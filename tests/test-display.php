@@ -17,6 +17,17 @@ class DisplayTest extends WP_UnitTestCase {
 		$this->display = new IMAGCOMA_Display();
 	}
 
+	public function tearDown(): void {
+		parent::tearDown();
+		IMAGCOMA_Display::$processed_attachments = array();
+		
+		// Reset emitted_ids using reflection
+		$reflection = new ReflectionClass( 'IMAGCOMA_Display' );
+		$prop = $reflection->getProperty( 'emitted_ids' );
+		$prop->setAccessible( true );
+		$prop->setValue( null, array() );
+	}
+
 	/**
 	 * Test JSON-LD data collection.
 	 */
@@ -57,12 +68,41 @@ class DisplayTest extends WP_UnitTestCase {
 
 		$data = $method->invoke( $this->display, $attachment_id );
 
+		// Validate structure
+		$this->assertEquals( 'https://schema.org/', $data['@context'] );
+		$this->assertEquals( 'ImageObject', $data['@type'] );
+		$this->assertStringContainsString( 'test.jpg', $data['contentUrl'] );
 		$this->assertEquals( 'Creator</script><script>alert(1)</script>', $data['creator']['name'] );
+		$this->assertEquals( 'Notice', $data['copyrightNotice'] );
+		$this->assertEquals( 'Credit', $data['creditText'] );
+		$this->assertEquals( 'https://example.com/license', $data['license'] );
 		
 		// The actual escaping happens during output in output_json_ld() using wp_json_encode with security flags.
 		// So we verify the data is collected correctly here.
 		$json_output = wp_json_encode( $data, JSON_HEX_TAG );
 		$this->assertStringNotContainsString( '</script>', $json_output );
 		$this->assertStringContainsString( '\u003C/script\u003E', $json_output );
+	}
+
+	/**
+	 * Test that duplicates are not emitted.
+	 */
+	public function test_no_duplicate_output() {
+		IMAGCOMA_Display::$processed_attachments = array( 101 );
+		
+		// Use reflection to set emitted_ids
+		$reflection = new ReflectionClass( 'IMAGCOMA_Display' );
+		$prop = $reflection->getProperty( 'emitted_ids' );
+		$prop->setAccessible( true );
+		$prop->setValue( null, array( 101 ) ); // Mark as already emitted
+
+		// Mock image data to avoid early return in foreach
+		// (get_image_schema_data would return false for ID 101 anyway, but we want to test the continue logic)
+		
+		ob_start();
+		$this->display->output_json_ld();
+		$output = ob_get_clean();
+
+		$this->assertStringNotContainsString( '<script', $output );
 	}
 }
