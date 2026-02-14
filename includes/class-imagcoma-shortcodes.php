@@ -11,11 +11,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Shortcodes {
     
+    /**
+     * Constructor.
+     */
     public function __construct() {
-        add_shortcode( 'imagcoma', array( $this, 'render_copyright_list' ) );
+        add_shortcode( 'imagcoma', array( $this, 'render_shortcode' ) );
     }
     
-    public function render_copyright_list( $atts ) {
+    /**
+     * Renders the [imagcoma] shortcode showing all images with copyright information.
+     *
+     * @param array $atts Shortcode attributes.
+     * @return string HTML output.
+     */
+    public function render_shortcode( $atts ) {
         $atts = shortcode_atts( array(
             'orderby' => 'date',
             'order' => 'DESC',
@@ -29,6 +38,12 @@ class IMAGCOMA_Shortcodes {
         $attachments = IMAGCOMA_Utils::get_attachments_with_copyright();
         if ( empty( $attachments ) ) {
             return '<p>' . esc_html( $atts['no_sources_text'] ) . '</p>';
+        }
+        
+        // Validate heading_tag
+        $allowed_headings = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+        if ( ! in_array( strtolower( $atts['heading_tag'] ), $allowed_headings ) ) {
+            $atts['heading_tag'] = 'h3'; // Fallback to default
         }
         
         $output = '<div class="imagcoma-media-list">';

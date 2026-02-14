@@ -3,14 +3,14 @@
  * Plugin Name:         Image Copyright Manager
  * Plugin URI:          https://mahelwebdesign.com/image-copyright-manager/
  * Description:         Adds a custom field for copyright information to WordPress media.
- * Version:             1.3.0
+ * Version:             1.3.1
  * Requires at least:   6.4
  * Requires PHP:        7.4
  * Author:              Mahel Webdesign
  * Author URI:          https://mahelwebdesign.com/
- * Contributors:        jespermhl
  * License:             GPL2
  * License URI:         https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:         image-copyright-manager
  * Domain Path:         /languages
  */
 
@@ -37,6 +37,11 @@ require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-settings.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-display.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-admin-columns.php';
 
+/**
+ * Initialize the plugin after all plugins are loaded.
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'imagcoma_init' ) ) {
     function imagcoma_init() {
         global $imagcoma_core;
@@ -47,15 +52,17 @@ if ( ! function_exists( 'imagcoma_init' ) ) {
     add_action( 'plugins_loaded', 'imagcoma_init' );
 }
 
+/**
+ * Run activation logic.
+ *
+ * Sets default options and creates the database table.
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'imagcoma_activate' ) ) {
-    register_activation_hook( __FILE__, 'imagcoma_activate' );
     function imagcoma_activate() {
         // Set default settings
-        $default_settings = array(
-            'display_text' => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
-            'enable_css' => 1
-        );
-        add_option( 'imagcoma_settings', $default_settings );
+        add_option( 'imagcoma_settings', IMAGCOMA_Core::get_default_settings() );
 
         // Initial table creation
         if ( function_exists( 'imagcoma_create_copyright_table' ) ) {
@@ -63,10 +70,18 @@ if ( ! function_exists( 'imagcoma_activate' ) ) {
         }
         
         // Set version
-        update_option( 'imagcoma_version', '1.3.0' );
+        update_option( 'imagcoma_version', IMAGCOMA_Core::VERSION );
     }
+    register_activation_hook( __FILE__, 'imagcoma_activate' );
 }
 
+/**
+ * Creates the custom database table for storing copyright information.
+ *
+ * Uses dbDelta to handle table creation and updates safely.
+ *
+ * @since 1.1.0
+ */
 if ( ! function_exists( 'imagcoma_create_copyright_table' ) ) {
     function imagcoma_create_copyright_table() {
         global $wpdb;
@@ -91,8 +106,14 @@ if ( ! function_exists( 'imagcoma_create_copyright_table' ) ) {
     }
 }
 
+/**
+ * Run deactivation logic.
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'imagcoma_deactivate' ) ) {
     function imagcoma_deactivate() {
+        // Placeholder for future cleanup logic if needed.
     }
     register_deactivation_hook( __FILE__, 'imagcoma_deactivate' );
 } 

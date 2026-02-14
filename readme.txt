@@ -2,9 +2,9 @@
 Contributors: jespermhl
 Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,8 +86,20 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 1. Copyright information field in media modal
 2. Shortcode output displaying media with copyright information
 
+== Upgrade Notice ==
+
+= 1.3.1 =
+This is a security release that addresses a potential XSS vulnerability in the JSON-LD output. All users are strongly encouraged to update immediately.
+
 == Changelog ==
 
+= 1.3.1 =
+* Security: Fixed a potential XSS vulnerability in the JSON-LD output by using enhanced escaping.
+* Added: Option to enable/disable JSON-LD SEO output in settings.
+* Improved: Restructured translation loading for better stability.
+* Changed: Improved CHANGELOG.txt structure to follow standards.
+* Fixed: Removed unused variables and cleaned up database queries.
+* Fixed: Corrected versioning inconsistencies.
 = 1.3.0 =
 - Added complete Google Image SEO support (Creator, Copyright Notice, Credit Text, License URL, Acquire License URL)
 - Added automatic JSON-LD Schema.org output for Google Image SEO license badge

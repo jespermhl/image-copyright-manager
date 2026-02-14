@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Admin_Columns {
 
+	/**
+	 * Constructor.
+	 * Initializes hooks for admin columns.
+	 */
 	public function __construct() {
 		add_filter( 'manage_media_columns', array( $this, 'add_copyright_column' ) );
 		add_action( 'manage_media_custom_column', array( $this, 'display_copyright_column' ), 10, 2 );

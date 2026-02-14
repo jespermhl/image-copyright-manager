@@ -9,13 +9,22 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+/**
+ * Settings functionality.
+ */
 class IMAGCOMA_Settings {
     
+    /**
+     * Constructor.
+     */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
         add_action( 'admin_init', array( $this, 'init_settings' ) );
     }
     
+    /**
+     * Adds the settings page to the Media menu.
+     */
     public function add_settings_page() {
         add_options_page(
             __( 'Image Copyright Manager', 'image-copyright-manager' ),
@@ -26,6 +35,9 @@ class IMAGCOMA_Settings {
         );
     }
     
+    /**
+     * Registers plugin settings and fields.
+     */
     public function init_settings() {
         register_setting( 'imagcoma_settings', 'imagcoma_settings', array( $this, 'sanitize_settings' ) );
         
@@ -51,8 +63,19 @@ class IMAGCOMA_Settings {
             'image-copyright-manager',
             'imagcoma_general_section'
         );
+
+        add_settings_field(
+            'enable_json_ld',
+            __( 'Enable JSON-LD SEO', 'image-copyright-manager' ),
+            array( $this, 'render_enable_json_ld_field' ),
+            'image-copyright-manager',
+            'imagcoma_general_section'
+        );
     }
     
+    /**
+     * Renders the settings page HTML.
+     */
     public function render_settings_page() {
         ?>
         <div class="wrap">
@@ -76,10 +99,16 @@ class IMAGCOMA_Settings {
         <?php
     }
     
+    /**
+     * Renders the description for the general settings section.
+     */
     public function render_section_description() {
         echo '<p>' . esc_html__( 'Configure how copyright information is displayed on your website.', 'image-copyright-manager' ) . '</p>';
     }
     
+    /**
+     * Renders the display text format input field.
+     */
     public function render_display_text_field() {
         $settings = IMAGCOMA_Core::get_settings();
         ?>
@@ -95,6 +124,9 @@ class IMAGCOMA_Settings {
         <?php
     }
     
+    /**
+     * Renders the enable CSS styling checkbox field.
+     */
     public function render_enable_css_field() {
         $settings = IMAGCOMA_Core::get_settings();
         ?>
@@ -102,6 +134,7 @@ class IMAGCOMA_Settings {
             <input 
                 type="checkbox" 
                 name="imagcoma_settings[enable_css]" 
+                id="imagcoma_settings[enable_css]"
                 value="1" 
                 <?php checked( $settings['enable_css'], 1 ); ?>
             />
@@ -112,7 +145,35 @@ class IMAGCOMA_Settings {
         </p>
         <?php
     }
+
+    /**
+     * Renders the enable JSON-LD SEO checkbox field.
+     */
+    public function render_enable_json_ld_field() {
+        $settings = IMAGCOMA_Core::get_settings();
+        ?>
+        <label for="imagcoma_settings[enable_json_ld]">
+            <input 
+                type="checkbox" 
+                name="imagcoma_settings[enable_json_ld]" 
+                id="imagcoma_settings[enable_json_ld]"
+                value="1" 
+                <?php checked( $settings['enable_json_ld'], 1 ); ?>
+            />
+            <?php esc_html_e( 'Enable JSON-LD Structured Data for Image SEO.', 'image-copyright-manager' ); ?>
+        </label>
+        <p class="description">
+            <?php esc_html_e( 'When enabled, the plugin will output Schema.org ImageObject JSON-LD to help Google identify images and show licensing badges.', 'image-copyright-manager' ); ?>
+        </p>
+        <?php
+    }
     
+    /**
+     * Sanitizes settings input before saving to the database.
+     *
+     * @param array $input Raw settings input.
+     * @return array Sanitized settings.
+     */
     public function sanitize_settings( $input ) {
         $sanitized = array();
         
@@ -124,6 +185,12 @@ class IMAGCOMA_Settings {
             $sanitized['enable_css'] = 1;
         } else {
             $sanitized['enable_css'] = 0;
+        }
+
+        if ( isset( $input['enable_json_ld'] ) ) {
+            $sanitized['enable_json_ld'] = 1;
+        } else {
+            $sanitized['enable_json_ld'] = 0;
         }
 
         return $sanitized;
