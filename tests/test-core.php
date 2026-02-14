@@ -10,8 +10,6 @@
  */
 class CoreTest extends WP_UnitTestCase {
 
-	private $core;
-
 	public function setUp(): void {
 		parent::setUp();
 	}
