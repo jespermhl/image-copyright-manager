@@ -252,7 +252,7 @@ class IMAGCOMA_Display {
         $img_url = wp_get_attachment_url( $attachment_id );
         
         $image_schema = array(
-            '@context'   => 'https://schema.org',
+            '@context'   => 'https://schema.org/',
             '@type'      => 'ImageObject',
             'contentUrl' => $img_url,
         );
