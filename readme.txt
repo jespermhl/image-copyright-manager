@@ -2,9 +2,9 @@
 Contributors: jespermhl
 Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,10 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 2. Shortcode output displaying media with copyright information
 
 == Changelog ==
+
+= 1.3.1 =
+- Added setting to enable/disable JSON-LD SEO output (enabled by default)
+- Improved translation loading for all plugin strings
 
 = 1.3.0 =
 - Added complete Google Image SEO support (Creator, Copyright Notice, Credit Text, License URL, Acquire License URL)

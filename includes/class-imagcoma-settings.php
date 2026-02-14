@@ -51,6 +51,14 @@ class IMAGCOMA_Settings {
             'image-copyright-manager',
             'imagcoma_general_section'
         );
+
+        add_settings_field(
+            'enable_json_ld',
+            __( 'Enable JSON-LD SEO', 'image-copyright-manager' ),
+            array( $this, 'render_enable_json_ld_field' ),
+            'image-copyright-manager',
+            'imagcoma_general_section'
+        );
     }
     
     public function render_settings_page() {
@@ -102,6 +110,7 @@ class IMAGCOMA_Settings {
             <input 
                 type="checkbox" 
                 name="imagcoma_settings[enable_css]" 
+                id="imagcoma_settings[enable_css]"
                 value="1" 
                 <?php checked( $settings['enable_css'], 1 ); ?>
             />
@@ -109,6 +118,25 @@ class IMAGCOMA_Settings {
         </label>
         <p class="description">
             <?php esc_html_e( 'When disabled, copyright information will be displayed without custom styling.', 'image-copyright-manager' ); ?>
+        </p>
+        <?php
+    }
+
+    public function render_enable_json_ld_field() {
+        $settings = IMAGCOMA_Core::get_settings();
+        ?>
+        <label for="imagcoma_settings[enable_json_ld]">
+            <input 
+                type="checkbox" 
+                name="imagcoma_settings[enable_json_ld]" 
+                id="imagcoma_settings[enable_json_ld]"
+                value="1" 
+                <?php checked( $settings['enable_json_ld'], 1 ); ?>
+            />
+            <?php esc_html_e( 'Enable JSON-LD Structured Data for Image SEO.', 'image-copyright-manager' ); ?>
+        </label>
+        <p class="description">
+            <?php esc_html_e( 'When enabled, the plugin will output Schema.org ImageObject JSON-LD to help Google identify images and show licensing badges.', 'image-copyright-manager' ); ?>
         </p>
         <?php
     }
@@ -124,6 +152,12 @@ class IMAGCOMA_Settings {
             $sanitized['enable_css'] = 1;
         } else {
             $sanitized['enable_css'] = 0;
+        }
+
+        if ( isset( $input['enable_json_ld'] ) ) {
+            $sanitized['enable_json_ld'] = 1;
+        } else {
+            $sanitized['enable_json_ld'] = 0;
         }
 
         return $sanitized;

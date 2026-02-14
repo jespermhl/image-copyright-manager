@@ -40,8 +40,7 @@ class IMAGCOMA_Utils {
         }
 
         global $wpdb;
-        $table_name = $wpdb->prefix . 'imagcoma_copyright';
-        $row = $wpdb->get_row( $wpdb->prepare( "SELECT copyright_text, creator, copyright_notice, credit_text, license_url, acquire_license_url FROM $table_name WHERE attachment_id = %d", $attachment_id ) );
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT copyright_text, creator, copyright_notice, credit_text, license_url, acquire_license_url FROM {$wpdb->prefix}imagcoma_copyright WHERE attachment_id = %d", $attachment_id ) );
         $display_copyright = get_post_meta( $attachment_id, '_imagcoma_display_copyright', true );
         
         $data = array(
@@ -135,11 +134,12 @@ class IMAGCOMA_Utils {
         $cache_key = 'imagcoma_attachments_with_copyright';
         $results = wp_cache_get( $cache_key, 'imagcoma' );
         if ( false === $results ) {
-            $sql = $wpdb->prepare(
-                "SELECT attachment_id, copyright_text FROM $table_name WHERE copyright_text != %s",
-                ''
+            $results = $wpdb->get_results( 
+                $wpdb->prepare(
+                    "SELECT attachment_id, copyright_text FROM {$wpdb->prefix}imagcoma_copyright WHERE copyright_text != %s",
+                    ''
+                ) 
             );
-            $results = $wpdb->get_results( $sql );
             wp_cache_set( $cache_key, $results, 'imagcoma', HOUR_IN_SECONDS );
         }
         return $results;

@@ -3,14 +3,14 @@
  * Plugin Name:         Image Copyright Manager
  * Plugin URI:          https://mahelwebdesign.com/image-copyright-manager/
  * Description:         Adds a custom field for copyright information to WordPress media.
- * Version:             1.3.0
+ * Version:             1.3.1
  * Requires at least:   6.4
  * Requires PHP:        7.4
  * Author:              Mahel Webdesign
  * Author URI:          https://mahelwebdesign.com/
- * Contributors:        jespermhl
  * License:             GPL2
  * License URI:         https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:         image-copyright-manager
  * Domain Path:         /languages
  */
 
@@ -52,8 +52,9 @@ if ( ! function_exists( 'imagcoma_activate' ) ) {
     function imagcoma_activate() {
         // Set default settings
         $default_settings = array(
-            'display_text' => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
-            'enable_css' => 1
+            'display_text'   => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
+            'enable_css'     => 1,
+            'enable_json_ld' => 1
         );
         add_option( 'imagcoma_settings', $default_settings );
 
@@ -63,7 +64,7 @@ if ( ! function_exists( 'imagcoma_activate' ) ) {
         }
         
         // Set version
-        update_option( 'imagcoma_version', '1.3.0' );
+        update_option( 'imagcoma_version', '1.3.1' );
     }
 }
 

@@ -132,6 +132,11 @@ class IMAGCOMA_Display {
     }
 
     public function output_json_ld() {
+        $settings = IMAGCOMA_Core::get_settings();
+        if ( empty( $settings['enable_json_ld'] ) ) {
+            return;
+        }
+
         if ( empty( self::$processed_attachments ) ) {
             return;
         }
@@ -156,6 +161,11 @@ class IMAGCOMA_Display {
     }
 
     public function output_single_attachment_json_ld() {
+        $settings = IMAGCOMA_Core::get_settings();
+        if ( empty( $settings['enable_json_ld'] ) ) {
+            return;
+        }
+
         if ( is_attachment() ) {
             $attachment_id = get_the_ID();
             $data = $this->get_image_schema_data( $attachment_id );

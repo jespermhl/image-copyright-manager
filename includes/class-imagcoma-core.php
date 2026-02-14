@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Core {
 
-    const VERSION = '1.3.0';
+    const VERSION = '1.3.1';
     
     const TEXT_DOMAIN = 'image-copyright-manager';
     
@@ -47,8 +47,9 @@ class IMAGCOMA_Core {
         $settings = get_option( 'imagcoma_settings', array() );
         
         $defaults = array(
-            'display_text' => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
-            'enable_css' => 1
+            'display_text'   => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
+            'enable_css'     => 1,
+            'enable_json_ld' => 1
         );
         
         return wp_parse_args( $settings, $defaults );
