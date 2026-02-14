@@ -90,6 +90,7 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 
 = 1.3.1 =
 - Added setting to enable/disable JSON-LD SEO output (enabled by default)
+- Fixed security vulnerability (XSS) in JSON-LD output
 - Improved translation loading for all plugin strings
 
 = 1.3.0 =
