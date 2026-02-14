@@ -37,6 +37,7 @@ class IMAGCOMA_Shortcodes {
         
         foreach ( $attachments as $row ) {
             $attachment_id = $row->attachment_id;
+            IMAGCOMA_Display::add_to_json_ld( $attachment_id );
             $copyright = $row->copyright_text;
             $attachment_url = wp_get_attachment_url( $attachment_id );
             $attachment_title = get_the_title( $attachment_id );

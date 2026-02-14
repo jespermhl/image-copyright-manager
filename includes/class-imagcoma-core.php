@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Core {
 
-    const VERSION = '1.2.2';
+    const VERSION = '1.3.0';
     
     const TEXT_DOMAIN = 'image-copyright-manager';
     
@@ -21,11 +21,18 @@ class IMAGCOMA_Core {
     
     private function init_hooks() {
         add_action( 'init', array( $this, 'init' ) );
+        add_action( 'admin_init', array( $this, 'check_version' ) );
+    }
+
+    public function check_version() {
+        $installed_version = get_option( 'imagcoma_version' );
+        if ( self::VERSION !== $installed_version ) {
+            imagcoma_create_copyright_table();
+            update_option( 'imagcoma_version', self::VERSION );
+        }
     }
     
     public function init() {
-        $this->load_dependencies();
-        
         new IMAGCOMA_Meta_Boxes();
         new IMAGCOMA_Shortcodes();
         new IMAGCOMA_Settings();
@@ -34,12 +41,6 @@ class IMAGCOMA_Core {
     }
     
     private function load_dependencies() {
-        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-meta-boxes.php';
-        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-shortcodes.php';
-        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-settings.php';
-        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-display.php';
-        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-utils.php';
-        require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-admin-columns.php';
     }
     
     public static function get_settings() {

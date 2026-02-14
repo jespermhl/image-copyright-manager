@@ -41,12 +41,17 @@ class IMAGCOMA_Utils {
 
         global $wpdb;
         $table_name = $wpdb->prefix . 'imagcoma_copyright';
-        $copyright = $wpdb->get_var( $wpdb->prepare( "SELECT copyright_text FROM $table_name WHERE attachment_id = %d", $attachment_id ) );
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT copyright_text, creator, copyright_notice, credit_text, license_url, acquire_license_url FROM $table_name WHERE attachment_id = %d", $attachment_id ) );
         $display_copyright = get_post_meta( $attachment_id, '_imagcoma_display_copyright', true );
         
         $data = array(
-            'copyright' => $copyright,
-            'display_copyright' => $display_copyright === '1'
+            'copyright'           => $row ? ($row->copyright_text ?? '') : '',
+            'creator'             => $row ? ($row->creator ?? '') : '',
+            'copyright_notice'    => $row ? ($row->copyright_notice ?? '') : '',
+            'credit_text'         => $row ? ($row->credit_text ?? '') : '',
+            'license_url'         => $row ? ($row->license_url ?? '') : '',
+            'acquire_license_url' => $row ? ($row->acquire_license_url ?? '') : '',
+            'display_copyright'   => $display_copyright === '1'
         );
 
         wp_cache_set( $cache_key, $data, 'imagcoma' );
@@ -93,18 +98,28 @@ class IMAGCOMA_Utils {
         return IMAGCOMA_Core::TEXT_DOMAIN;
     }
 
-    public static function save_copyright_info( $attachment_id, $copyright_text ) {
+    public static function save_copyright_info( $attachment_id, $copyright_text, $creator = '', $copyright_notice = '', $credit_text = '', $license_url = '', $acquire_license_url = '' ) {
         global $wpdb;
         $table_name = $wpdb->prefix . 'imagcoma_copyright';
 
         $wpdb->replace(
             $table_name,
             array(
-                'attachment_id'   => $attachment_id,
-                'copyright_text'  => $copyright_text,
+                'attachment_id'       => $attachment_id,
+                'copyright_text'      => $copyright_text,
+                'creator'             => $creator,
+                'copyright_notice'    => $copyright_notice,
+                'credit_text'         => $credit_text,
+                'license_url'         => $license_url,
+                'acquire_license_url' => $acquire_license_url,
             ),
             array(
                 '%d',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
                 '%s',
             )
         );

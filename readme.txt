@@ -4,19 +4,21 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Add copyright information to WordPress media files with a custom field and display them using shortcodes.
+Add copyright information to WordPress media files with a custom field and display them using shortcodes. Now includes JSON-LD for Image SEO.
 
 == Description ==
 
-Image Copyright Manager adds a custom field for copyright information to WordPress media attachments. This allows you to store copyright details for your images and other media files, and display them on your website using shortcodes.
+Image Copyright Manager adds a custom field for copyright information to WordPress media attachments. This allows you to store copyright details for your images and other media files, and display them on your website using shortcodes. Version 1.3.0 introduces advanced SEO fields for "Creator" and "Copyright Notice" which are automatically output as JSON-LD for Google Image SEO.
 
 = Features =
 
 * Add copyright information to any media file in WordPress
+* Complete Google Image SEO support (Creator, Copyright Notice, Credit Text, License URL, Acquire License URL)
+* Automatic JSON-LD Schema.org output for Google Image SEO license badge
 * Support for HTML links in copyright information
 * Integrated into Media Modal and Edit Media screen
 * Shortcode to display all media with copyright information
@@ -85,6 +87,13 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 2. Shortcode output displaying media with copyright information
 
 == Changelog ==
+
+= 1.3.0 =
+- Added complete Google Image SEO support (Creator, Copyright Notice, Credit Text, License URL, Acquire License URL)
+- Added automatic JSON-LD Schema.org output for Google Image SEO license badge
+- Improved image collection logic to support featured images and more theme structures
+- Updated database schema for SEO metadata
+- Added JSON-LD support for single attachment pages
 
 = 1.2.2 =
 - Added sortable Copyright column to Media Library list view

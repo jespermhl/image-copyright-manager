@@ -19,13 +19,63 @@ class IMAGCOMA_Meta_Boxes {
     public function add_copyright_field_to_media_modal( $form_fields, $post ) {
         $copyright_data = IMAGCOMA_Utils::get_copyright_info( $post->ID );
         $copyright = $copyright_data['copyright'] ?? '';
+        $creator = $copyright_data['creator'] ?? '';
+        $copyright_notice = $copyright_data['copyright_notice'] ?? '';
+        $credit_text = $copyright_data['credit_text'] ?? '';
+        $license_url = $copyright_data['license_url'] ?? '';
+        $acquire_license_url = $copyright_data['acquire_license_url'] ?? '';
         $display_copyright = $copyright_data['display_copyright'] ?? false;
         
         $form_fields['imagcoma_copyright'] = array(
             'label' => __( 'Copyright Info', 'image-copyright-manager' ),
             'input' => 'textarea',
             'value' => $copyright,
-            'helps' => __( 'Enter copyright information. HTML links are allowed.', 'image-copyright-manager' ),
+            'helps' => __( 'Enter copyright information for display on the website. HTML links are allowed.', 'image-copyright-manager' ),
+            'show_in_edit' => true,
+            'show_in_modal' => true,
+        );
+
+        $form_fields['imagcoma_creator'] = array(
+            'label' => __( 'Creator (SEO)', 'image-copyright-manager' ),
+            'input' => 'text',
+            'value' => $creator,
+            'helps' => __( 'The person or entity that created the image.', 'image-copyright-manager' ),
+            'show_in_edit' => true,
+            'show_in_modal' => true,
+        );
+
+        $form_fields['imagcoma_copyright_notice'] = array(
+            'label' => __( 'Copyright Notice (SEO)', 'image-copyright-manager' ),
+            'input' => 'text',
+            'value' => $copyright_notice,
+            'helps' => __( 'The copyright notice for Google SEO.', 'image-copyright-manager' ),
+            'show_in_edit' => true,
+            'show_in_modal' => true,
+        );
+
+        $form_fields['imagcoma_credit_text'] = array(
+            'label' => __( 'Credit Text (SEO)', 'image-copyright-manager' ),
+            'input' => 'text',
+            'value' => $credit_text,
+            'helps' => __( 'The credit text for the image (e.g., photographer name).', 'image-copyright-manager' ),
+            'show_in_edit' => true,
+            'show_in_modal' => true,
+        );
+
+        $form_fields['imagcoma_license_url'] = array(
+            'label' => __( 'License URL (SEO)', 'image-copyright-manager' ),
+            'input' => 'text',
+            'value' => $license_url,
+            'helps' => __( 'URL to the license of the image.', 'image-copyright-manager' ),
+            'show_in_edit' => true,
+            'show_in_modal' => true,
+        );
+
+        $form_fields['imagcoma_acquire_license_url'] = array(
+            'label' => __( 'Acquire License URL (SEO)', 'image-copyright-manager' ),
+            'input' => 'text',
+            'value' => $acquire_license_url,
+            'helps' => __( 'URL where a user can acquire a license for the image.', 'image-copyright-manager' ),
             'show_in_edit' => true,
             'show_in_modal' => true,
         );
@@ -59,7 +109,13 @@ class IMAGCOMA_Meta_Boxes {
             );
             
             $copyright_data = wp_kses( wp_unslash( $attachment['imagcoma_copyright'] ), $allowed_html );
-            IMAGCOMA_Utils::save_copyright_info( $post['ID'], $copyright_data );
+            $creator = isset( $attachment['imagcoma_creator'] ) ? sanitize_text_field( wp_unslash( $attachment['imagcoma_creator'] ) ) : '';
+            $copyright_notice = isset( $attachment['imagcoma_copyright_notice'] ) ? sanitize_text_field( wp_unslash( $attachment['imagcoma_copyright_notice'] ) ) : '';
+            $credit_text = isset( $attachment['imagcoma_credit_text'] ) ? sanitize_text_field( wp_unslash( $attachment['imagcoma_credit_text'] ) ) : '';
+            $license_url = isset( $attachment['imagcoma_license_url'] ) ? esc_url_raw( wp_unslash( $attachment['imagcoma_license_url'] ) ) : '';
+            $acquire_license_url = isset( $attachment['imagcoma_acquire_license_url'] ) ? esc_url_raw( wp_unslash( $attachment['imagcoma_acquire_license_url'] ) ) : '';
+
+            IMAGCOMA_Utils::save_copyright_info( $post['ID'], $copyright_data, $creator, $copyright_notice, $credit_text, $license_url, $acquire_license_url );
         }
         
         $display_copyright = isset( $attachment['imagcoma_display_copyright'] ) ? '1' : '0';
