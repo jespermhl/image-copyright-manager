@@ -9,13 +9,22 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+/**
+ * Settings functionality.
+ */
 class IMAGCOMA_Settings {
     
+    /**
+     * Constructor.
+     */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
-        add_action( 'admin_init', array( $this, 'init_settings' ) );
+        add_action( 'admin_init', array( $this, 'register_settings' ) );
     }
     
+    /**
+     * Adds the settings page to the Media menu.
+     */
     public function add_settings_page() {
         add_options_page(
             __( 'Image Copyright Manager', 'image-copyright-manager' ),

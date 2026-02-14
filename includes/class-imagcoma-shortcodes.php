@@ -11,11 +11,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Shortcodes {
     
+    /**
+     * Constructor.
+     */
     public function __construct() {
-        add_shortcode( 'imagcoma', array( $this, 'render_copyright_list' ) );
+        add_shortcode( 'imagcoma', array( $this, 'render_shortcode' ) );
     }
     
-    public function render_copyright_list( $atts ) {
+    /**
+     * Renders the [imagcoma] shortcode showing all images with copyright information.
+     *
+     * @param array $atts Shortcode attributes.
+     * @return string HTML output.
+     */
+    public function render_shortcode( $atts ) {
         $atts = shortcode_atts( array(
             'orderby' => 'date',
             'order' => 'DESC',

@@ -37,6 +37,11 @@ require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-settings.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-display.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-admin-columns.php';
 
+/**
+ * Initialize the plugin after all plugins are loaded.
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'imagcoma_init' ) ) {
     function imagcoma_init() {
         global $imagcoma_core;
@@ -47,6 +52,13 @@ if ( ! function_exists( 'imagcoma_init' ) ) {
     add_action( 'plugins_loaded', 'imagcoma_init' );
 }
 
+/**
+ * Run activation logic.
+ *
+ * Sets default options and creates the database table.
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'imagcoma_activate' ) ) {
     register_activation_hook( __FILE__, 'imagcoma_activate' );
     function imagcoma_activate() {
@@ -64,10 +76,17 @@ if ( ! function_exists( 'imagcoma_activate' ) ) {
         }
         
         // Set version
-        update_option( 'imagcoma_version', '1.3.1' );
+        update_option( 'imagcoma_version', IMAGCOMA_Core::VERSION );
     }
 }
 
+/**
+ * Creates the custom database table for storing copyright information.
+ *
+ * Uses dbDelta to handle table creation and updates safely.
+ *
+ * @since 1.1.0
+ */
 if ( ! function_exists( 'imagcoma_create_copyright_table' ) ) {
     function imagcoma_create_copyright_table() {
         global $wpdb;
@@ -92,8 +111,14 @@ if ( ! function_exists( 'imagcoma_create_copyright_table' ) ) {
     }
 }
 
+/**
+ * Run deactivation logic.
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'imagcoma_deactivate' ) ) {
     function imagcoma_deactivate() {
+        // Placeholder for future cleanup logic if needed.
     }
     register_deactivation_hook( __FILE__, 'imagcoma_deactivate' );
 } 

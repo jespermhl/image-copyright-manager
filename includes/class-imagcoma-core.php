@@ -15,15 +15,24 @@ class IMAGCOMA_Core {
     
     const TEXT_DOMAIN = 'image-copyright-manager';
     
+    /**
+     * Constructor.
+     */
     public function __construct() {
         $this->init_hooks();
     }
     
+    /**
+     * Initializes core hooks.
+     */
     private function init_hooks() {
         add_action( 'init', array( $this, 'init' ) );
         add_action( 'admin_init', array( $this, 'check_version' ) );
     }
 
+    /**
+     * Checks the plugin version and runs migration logic if necessary.
+     */
     public function check_version() {
         $installed_version = get_option( 'imagcoma_version' );
         if ( self::VERSION !== $installed_version ) {
@@ -32,6 +41,9 @@ class IMAGCOMA_Core {
         }
     }
     
+    /**
+     * Initializes internal components.
+     */
     public function init() {
         new IMAGCOMA_Meta_Boxes();
         new IMAGCOMA_Shortcodes();
@@ -40,6 +52,9 @@ class IMAGCOMA_Core {
         new IMAGCOMA_Admin_Columns();
     }
     
+    /**
+     * Load dependencies (legacy).
+     */
     private function load_dependencies() {
     }
     

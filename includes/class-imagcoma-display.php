@@ -14,27 +14,57 @@ class IMAGCOMA_Display {
     
     public static $processed_attachments = array();
 
+    /**
+     * Adds an attachment ID to the list of processed images for JSON-LD.
+     *
+     * @param int $attachment_id The attachment ID.
+     */
     public static function add_to_json_ld( $attachment_id ) {
         if ( ! in_array( $attachment_id, self::$processed_attachments ) ) {
             self::$processed_attachments[] = $attachment_id;
         }
     }
     
+    /**
+     * Constructor.
+     */
     public function __construct() {
+        $this->init_hooks();
+    }
+    
+    /**
+     * Initializes hooks for display functionality.
+     */
+    private function init_hooks() {
         add_filter( 'the_content', array( $this, 'auto_display_copyright' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-        add_action( 'wp_footer', array( $this, 'output_json_ld' ) );
-        add_action( 'wp_head', array( $this, 'output_single_attachment_json_ld' ) );
         add_filter( 'wp_get_attachment_image_attributes', array( $this, 'collect_rendered_image_id' ), 10, 2 );
+        add_action( 'wp_footer', array( $this, 'output_json_ld' ), 20 );
+        add_action( 'wp_head', array( $this, 'output_single_attachment_json_ld' ) );
     }
-
+    
+    /**
+     * Collects attachment ID from rendered images.
+     *
+     * @param array $attr Image attributes.
+     * @param WP_Post|int $attachment Attachment post object or ID.
+     * @return array Modified image attributes.
+     */
     public function collect_rendered_image_id( $attr, $attachment ) {
-        if ( isset( $attachment->ID ) ) {
+        if ( is_object( $attachment ) && isset( $attachment->ID ) ) {
             self::add_to_json_ld( $attachment->ID );
+        } elseif ( is_numeric( $attachment ) ) {
+            self::add_to_json_ld( $attachment );
         }
         return $attr;
     }
     
+    /**
+     * Automatically appends copyright information to images in the content.
+     *
+     * @param string $content The post content.
+     * @return string Modified content with copyright information.
+     */
     public function auto_display_copyright( $content ) {
         if ( empty( $content ) ) {
             return $content;
@@ -123,6 +153,9 @@ class IMAGCOMA_Display {
         return $content;
     }
     
+    /**
+     * Enqueues the necessary CSS styles for displaying copyright information.
+     */
     public function enqueue_styles() {
         $settings = IMAGCOMA_Core::get_settings();
         
@@ -131,6 +164,9 @@ class IMAGCOMA_Display {
         }
     }
 
+    /**
+     * Outputs JSON-LD structured data for collected images in the footer.
+     */
     public function output_json_ld() {
         $settings = IMAGCOMA_Core::get_settings();
         if ( empty( $settings['enable_json_ld'] ) ) {
@@ -154,12 +190,15 @@ class IMAGCOMA_Display {
         if ( ! empty( $json_data ) ) {
             echo "\n<!-- Image Copyright Manager: JSON-LD start -->\n";
             echo '<script type="application/ld+json">' . "\n";
-            echo json_encode( $json_data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+            echo wp_json_encode( $json_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_PRETTY_PRINT );
             echo "\n" . '</script>' . "\n";
             echo "<!-- Image Copyright Manager: JSON-LD end -->\n";
         }
     }
 
+    /**
+     * Outputs JSON-LD structured data for the main image on single attachment pages.
+     */
     public function output_single_attachment_json_ld() {
         $settings = IMAGCOMA_Core::get_settings();
         if ( empty( $settings['enable_json_ld'] ) ) {
@@ -172,12 +211,18 @@ class IMAGCOMA_Display {
             
             if ( $data ) {
                 echo "\n" . '<script type="application/ld+json">' . "\n";
-                echo json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+                echo wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_PRETTY_PRINT );
                 echo "\n" . '</script>' . "\n";
             }
         }
     }
 
+    /**
+     * Generates Schema.org ImageObject data for an attachment.
+     *
+     * @param int $attachment_id The attachment ID.
+     * @return array|bool Schema data array or false if criteria not met.
+     */
     private function get_image_schema_data( $attachment_id ) {
         $copyright_data = IMAGCOMA_Utils::get_copyright_info( $attachment_id );
         

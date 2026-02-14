@@ -9,13 +9,27 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+/**
+ * Handles the creation and saving of custom fields for image copyright information in the media modal.
+ */
 class IMAGCOMA_Meta_Boxes {
     
+    /**
+     * Constructor.
+     * Initializes hooks for adding and saving copyright fields.
+     */
     public function __construct() {
         add_filter( 'attachment_fields_to_edit', array( $this, 'add_copyright_field_to_media_modal' ), 10, 2 );
         add_filter( 'attachment_fields_to_save', array( $this, 'save_copyright_data' ), 10, 2 );
     }
     
+    /**
+     * Adds custom copyright fields to the media edit screen and modal.
+     *
+     * @param array $form_fields List of form fields.
+     * @param WP_Post $post The current attachment post object.
+     * @return array Modified form fields.
+     */
     public function add_copyright_field_to_media_modal( $form_fields, $post ) {
         $copyright_data = IMAGCOMA_Utils::get_copyright_info( $post->ID );
         $copyright = $copyright_data['copyright'] ?? '';
@@ -91,6 +105,13 @@ class IMAGCOMA_Meta_Boxes {
         return $form_fields;
     }
     
+    /**
+     * Saves the custom copyright data when an attachment is updated.
+     *
+     * @param array $post The post data.
+     * @param array $attachment The attachment data.
+     * @return array Modified post data.
+     */
     public function save_copyright_data( $post, $attachment ) {
         if ( isset( $attachment['imagcoma_copyright'] ) ) {
             $allowed_html = array(
@@ -123,4 +144,4 @@ class IMAGCOMA_Meta_Boxes {
 
         return $post;
     }
-} 
+}
