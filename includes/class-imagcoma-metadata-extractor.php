@@ -61,6 +61,16 @@ class IMAGCOMA_Metadata_Extractor {
      * @param int $attachment_id The attachment ID.
      */
     private function extract_and_save_metadata( $attachment_id ) {
+        // Request-scoped guard to prevent double processing
+        static $processed_ids = array();
+        
+        if ( isset( $processed_ids[ $attachment_id ] ) ) {
+            return; // Already processed in this request
+        }
+        
+        // Mark as being processed
+        $processed_ids[ $attachment_id ] = true;
+        
         // Get the file path
         $file = get_attached_file( $attachment_id );
         
@@ -153,6 +163,12 @@ class IMAGCOMA_Metadata_Extractor {
             }
         }
         
+        // Sanitize all extracted metadata before saving
+        $copyright_text = IMAGCOMA_Utils::sanitize_copyright_html( $copyright_text );
+        $creator = sanitize_text_field( $creator );
+        $copyright_notice = sanitize_text_field( $copyright_notice );
+        $credit_text = sanitize_text_field( $credit_text );
+        
         // Only save if we found at least some copyright information
         if ( ! empty( $copyright_text ) || ! empty( $creator ) || ! empty( $credit_text ) || ! empty( $copyright_notice ) ) {
             IMAGCOMA_Utils::save_copyright_info(
@@ -174,7 +190,8 @@ class IMAGCOMA_Metadata_Extractor {
      * @return array|false IPTC data or false on failure.
      */
     private function read_iptc_data( $file ) {
-        $size = getimagesize( $file, $info );
+        // We only need $info, return value is intentionally ignored
+        getimagesize( $file, $info );
         
         if ( ! isset( $info['APP13'] ) ) {
             return false;
