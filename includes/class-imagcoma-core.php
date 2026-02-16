@@ -50,6 +50,7 @@ class IMAGCOMA_Core {
         new IMAGCOMA_Settings();
         new IMAGCOMA_Display();
         new IMAGCOMA_Admin_Columns();
+        new IMAGCOMA_Metadata_Extractor();
     }
     
     /**

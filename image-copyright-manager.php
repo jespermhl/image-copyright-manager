@@ -36,6 +36,7 @@ require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-shortcodes.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-settings.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-display.php';
 require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-admin-columns.php';
+require_once IMAGCOMA_PLUGIN_DIR . 'includes/class-imagcoma-metadata-extractor.php';
 
 /**
  * Initialize the plugin after all plugins are loaded.
