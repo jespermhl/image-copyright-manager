@@ -56,9 +56,13 @@ class IMAGCOMA_Metadata_Extractor {
     }
     
     /**
-     * Extracts and saves copyright metadata from an image file.
+     * Extracts copyright-related metadata from an image attachment and saves it to the attachment's stored copyright fields.
      *
-     * @param int $attachment_id The attachment ID.
+     * If automatic extraction is disabled, the file is missing, the attachment has been processed already in this request,
+     * or any copyright-related field was manually populated, the method returns without making changes. When extraction
+     * succeeds, it will persist any found copyright text, creator/artist, copyright notice, and credit text.
+     *
+     * @param int $attachment_id The attachment ID to extract metadata from.
      */
     private function extract_and_save_metadata( $attachment_id ) {
         // Check if auto-extraction is enabled
