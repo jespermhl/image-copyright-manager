@@ -112,4 +112,35 @@ class Test_Metadata_Extractor extends WP_UnitTestCase {
         $copyright_data = IMAGCOMA_Utils::get_copyright_info( $attachment_id );
         $this->assertEmpty( $copyright_data['copyright'] );
     }
+
+    /**
+     * Test that auto-extraction respects the setting
+     */
+    public function test_auto_extraction_respects_setting() {
+        // Disable auto-extraction
+        update_option( 'imagcoma_settings', array(
+            'enable_auto_extract' => 0
+        ) );
+
+        // Create a test attachment
+        $attachment_id = $this->factory->attachment->create_upload_object( 
+            IMAGCOMA_PLUGIN_DIR . 'tests/fixtures/test-image.jpg' 
+        );
+
+        // Try to extract metadata (should be skipped)
+        $extractor = new IMAGCOMA_Metadata_Extractor();
+        $reflection = new ReflectionClass( $extractor );
+        $method = $reflection->getMethod( 'extract_and_save_metadata' );
+        $method->setAccessible( true );
+        $method->invoke( $extractor, $attachment_id );
+
+        // Verify no copyright data was created
+        $copyright_data = IMAGCOMA_Utils::get_copyright_info( $attachment_id );
+        $this->assertEmpty( $copyright_data['copyright'] );
+
+        // Re-enable auto-extraction for other tests
+        update_option( 'imagcoma_settings', array(
+            'enable_auto_extract' => 1
+        ) );
+    }
 }
