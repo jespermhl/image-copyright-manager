@@ -92,7 +92,10 @@ class Test_Metadata_Extractor extends WP_UnitTestCase {
     }
 
     /**
-     * Test that non-image attachments are skipped
+     * Verifies that metadata extraction skips non-image attachments.
+     *
+     * Creates a PDF attachment, invokes the extractor as if uploaded, and asserts no copyright
+     * metadata is stored for the attachment.
      */
     public function test_non_image_attachments_skipped() {
         // Create a non-image attachment (PDF)

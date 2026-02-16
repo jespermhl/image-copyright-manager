@@ -177,8 +177,12 @@ class IMAGCOMA_Settings {
     }
 
     /**
-     * Renders the enable auto-extract metadata checkbox field.
-     */
+     * Renders the checkbox field for the "enable_auto_extract" setting.
+     *
+     * Displays a checkbox that toggles automatic extraction of copyright metadata
+     * from EXIF, IPTC, and XMP on image upload. When enabled, the plugin will read
+     * copyright data produced by tools like Lightroom; existing manual metadata
+     * entries will not be overwritten. */
     public function render_enable_auto_extract_field() {
         $settings = IMAGCOMA_Core::get_settings();
         ?>
@@ -199,10 +203,16 @@ class IMAGCOMA_Settings {
     }
     
     /**
-     * Sanitizes settings input before saving to the database.
+     * Sanitizes and normalizes plugin settings prior to persistence.
      *
-     * @param array $input Raw settings input.
-     * @return array Sanitized settings.
+     * Sanitizes the display text and converts checkbox-like options to explicit integers.
+     *
+     * @param array $input Raw settings array from the settings form.
+     * @return array Sanitized settings with keys:
+     *               - 'display_text' (string) if provided,
+     *               - 'enable_css' (int) 1 or 0,
+     *               - 'enable_json_ld' (int) 1 or 0,
+     *               - 'enable_auto_extract' (int) 1 or 0.
      */
     public function sanitize_settings( $input ) {
         $sanitized = array();
