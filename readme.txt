@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,7 @@ Image Copyright Manager adds a custom field for copyright information to WordPre
 = Features =
 
 * Add copyright information to any media file in WordPress
+* Automatic Metadata Extraction (EXIF, IPTC, XMP) from Lightroom and other software
 * Complete Google Image SEO support (Creator, Copyright Notice, Credit Text, License URL, Acquire License URL)
 * Automatic JSON-LD Schema.org output for Google Image SEO license badge
 * Support for HTML links in copyright information
@@ -81,6 +82,10 @@ Yes! The copyright field supports HTML links, so you can link to the original so
 
 Yes, the plugin is fully translation ready and includes a POT file for creating translations.
 
+= Does it support Lightroom metadata? =
+
+Yes! Version 1.4.0 introduces automatic metadata extraction. When you upload an image exported from Lightroom (or other software preserving EXIF/IPTC/XMP), the plugin will automatically read copyright, creator, and credit fields. You can enable or disable this feature in the settings (Settings -> Image Copyright).
+
 == Screenshots ==
 
 1. Copyright information field in media modal
@@ -92,6 +97,13 @@ Yes, the plugin is fully translation ready and includes a POT file for creating 
 This is a security release that addresses a potential XSS vulnerability in the JSON-LD output. All users are strongly encouraged to update immediately.
 
 == Changelog ==
+
+= 1.4.0 =
+* Added: Automatic metadata extraction (EXIF, IPTC, XMP) on image upload.
+* Added: Support for Lightroom metadata mapping (dc:rights, creator, etc.).
+* Added: "Auto-Extract Metadata" toggle in settings.
+* Improved: Performance-optimized metadata reading using bounded file access.
+* Improved: Better sanitization and request-scoped deduplication for metadata processing.
 
 = 1.3.1 =
 * Security: Fixed a potential XSS vulnerability in the JSON-LD output by using enhanced escaping.

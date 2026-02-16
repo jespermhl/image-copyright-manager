@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-02-16
+### Added
+- Added automatic metadata extraction (EXIF, IPTC, XMP) on image upload.
+- Added support for Lightroom metadata mapping (dc:rights, creator, etc.).
+- Added "Auto-Extract Metadata" toggle in settings.
+
+### Improved
+- Performance-optimized metadata reading using bounded file access (max 2MB).
+- Better sanitization and request-scoped deduplication for metadata processing to avoid redundant operations.
+- Enhanced reliability of IPTC data parsing by using standard 2#116 tags.
+
 ## [1.3.1] - 2026-02-14
 ### Added
 - Added setting to enable/disable JSON-LD SEO output (enabled by default).
