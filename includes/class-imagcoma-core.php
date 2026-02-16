@@ -61,9 +61,10 @@ class IMAGCOMA_Core {
      */
     public static function get_default_settings() {
         return array(
-            'display_text'   => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
-            'enable_css'     => 1,
-            'enable_json_ld' => 1
+            'display_text'       => __( 'Copyright: {copyright}', 'image-copyright-manager' ),
+            'enable_css'         => 1,
+            'enable_json_ld'     => 1,
+            'enable_auto_extract' => 1
         );
     }
     

@@ -61,6 +61,12 @@ class IMAGCOMA_Metadata_Extractor {
      * @param int $attachment_id The attachment ID.
      */
     private function extract_and_save_metadata( $attachment_id ) {
+        // Check if auto-extraction is enabled
+        $settings = IMAGCOMA_Core::get_settings();
+        if ( empty( $settings['enable_auto_extract'] ) ) {
+            return; // Auto-extraction is disabled
+        }
+        
         // Request-scoped guard to prevent double processing
         static $processed_ids = array();
         

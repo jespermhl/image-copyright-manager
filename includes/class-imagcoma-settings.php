@@ -71,6 +71,14 @@ class IMAGCOMA_Settings {
             'image-copyright-manager',
             'imagcoma_general_section'
         );
+
+        add_settings_field(
+            'enable_auto_extract',
+            __( 'Auto-Extract Metadata', 'image-copyright-manager' ),
+            array( $this, 'render_enable_auto_extract_field' ),
+            'image-copyright-manager',
+            'imagcoma_general_section'
+        );
     }
     
     /**
@@ -167,6 +175,28 @@ class IMAGCOMA_Settings {
         </p>
         <?php
     }
+
+    /**
+     * Renders the enable auto-extract metadata checkbox field.
+     */
+    public function render_enable_auto_extract_field() {
+        $settings = IMAGCOMA_Core::get_settings();
+        ?>
+        <label for="imagcoma_settings[enable_auto_extract]">
+            <input 
+                type="checkbox" 
+                name="imagcoma_settings[enable_auto_extract]" 
+                id="imagcoma_settings[enable_auto_extract]"
+                value="1" 
+                <?php checked( $settings['enable_auto_extract'], 1 ); ?>
+            />
+            <?php esc_html_e( 'Automatically extract copyright information from EXIF/IPTC/XMP metadata on upload.', 'image-copyright-manager' ); ?>
+        </label>
+        <p class="description">
+            <?php esc_html_e( 'When enabled, the plugin will automatically read copyright data from Lightroom and other photo editing software. Existing manual entries will not be overwritten.', 'image-copyright-manager' ); ?>
+        </p>
+        <?php
+    }
     
     /**
      * Sanitizes settings input before saving to the database.
@@ -191,6 +221,12 @@ class IMAGCOMA_Settings {
             $sanitized['enable_json_ld'] = 1;
         } else {
             $sanitized['enable_json_ld'] = 0;
+        }
+
+        if ( isset( $input['enable_auto_extract'] ) ) {
+            $sanitized['enable_auto_extract'] = 1;
+        } else {
+            $sanitized['enable_auto_extract'] = 0;
         }
 
         return $sanitized;
