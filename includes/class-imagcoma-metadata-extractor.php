@@ -46,6 +46,11 @@ class IMAGCOMA_Metadata_Extractor {
      * @return array Unmodified metadata.
      */
     public function extract_metadata_after_generation( $metadata, $attachment_id ) {
+        // Only process images
+        if ( ! wp_attachment_is_image( $attachment_id ) ) {
+            return $metadata;
+        }
+        
         $this->extract_and_save_metadata( $attachment_id );
         return $metadata;
     }
@@ -65,7 +70,14 @@ class IMAGCOMA_Metadata_Extractor {
         
         // Check if copyright info already exists (don't overwrite manual entries)
         $existing_data = IMAGCOMA_Utils::get_copyright_info( $attachment_id );
-        if ( ! empty( $existing_data['copyright'] ) ) {
+        
+        // Don't overwrite if ANY field has been manually entered
+        if ( ! empty( $existing_data['copyright'] ) 
+            || ! empty( $existing_data['creator'] ) 
+            || ! empty( $existing_data['copyright_notice'] )
+            || ! empty( $existing_data['credit_text'] )
+            || ! empty( $existing_data['license_url'] )
+            || ! empty( $existing_data['acquire_license_url'] ) ) {
             return; // Don't overwrite existing data
         }
         
@@ -101,9 +113,14 @@ class IMAGCOMA_Metadata_Extractor {
         $iptc_data = $this->read_iptc_data( $file );
         
         if ( $iptc_data ) {
-            // IPTC Copyright Notice (2#116)
-            if ( ! empty( $iptc_data['2#116'][0] ) && empty( $copyright_text ) ) {
-                $copyright_text = $iptc_data['2#116'][0];
+            // IPTC Copyright Notice (2#116) - Standard copyright field
+            if ( ! empty( $iptc_data['2#116'][0] ) ) {
+                if ( empty( $copyright_text ) ) {
+                    $copyright_text = $iptc_data['2#116'][0];
+                }
+                if ( empty( $copyright_notice ) ) {
+                    $copyright_notice = $iptc_data['2#116'][0];
+                }
             }
             
             // IPTC Creator (2#080)
@@ -114,16 +131,6 @@ class IMAGCOMA_Metadata_Extractor {
             // IPTC Credit (2#110)
             if ( ! empty( $iptc_data['2#110'][0] ) && empty( $credit_text ) ) {
                 $credit_text = $iptc_data['2#110'][0];
-            }
-            
-            // IPTC Copyright Notice can also be in 2#074
-            if ( ! empty( $iptc_data['2#074'][0] ) && empty( $copyright_notice ) ) {
-                $copyright_notice = $iptc_data['2#074'][0];
-            }
-            
-            // IPTC Rights Usage Terms (2#055) - Lightroom uses this for copyright
-            if ( ! empty( $iptc_data['2#055'][0] ) && empty( $copyright_text ) ) {
-                $copyright_text = $iptc_data['2#055'][0];
             }
         }
         
@@ -181,21 +188,46 @@ class IMAGCOMA_Metadata_Extractor {
     /**
      * Reads XMP data from an image file.
      * Lightroom often stores copyright information in XMP metadata.
+     * Uses bounded reads to avoid loading entire file into memory.
      *
      * @param string $file Path to the image file.
      * @return array|false XMP data or false on failure.
      */
     private function read_xmp_data( $file ) {
-        $content = file_get_contents( $file );
+        $handle = @fopen( $file, 'rb' );
         
-        if ( ! $content ) {
+        if ( ! $handle ) {
             return false;
         }
+        
+        // Read in chunks to find XMP data without loading entire file
+        $chunk_size = 262144; // 256KB chunks
+        $max_read = 2097152; // Max 2MB to search for XMP
+        $buffer = '';
+        $total_read = 0;
+        
+        while ( ! feof( $handle ) && $total_read < $max_read ) {
+            $chunk = fread( $handle, $chunk_size );
+            if ( false === $chunk ) {
+                fclose( $handle );
+                return false;
+            }
+            
+            $buffer .= $chunk;
+            $total_read += strlen( $chunk );
+            
+            // Check if we have the complete XMP packet
+            if ( strpos( $buffer, '</x:xmpmeta>' ) !== false ) {
+                break;
+            }
+        }
+        
+        fclose( $handle );
         
         $xmp_data = array();
         
         // Extract XMP data between <x:xmpmeta> tags
-        if ( preg_match( '/<x:xmpmeta.*?<\/x:xmpmeta>/s', $content, $matches ) ) {
+        if ( preg_match( '/<x:xmpmeta.*?<\/x:xmpmeta>/s', $buffer, $matches ) ) {
             $xmp = $matches[0];
             
             // Extract dc:rights (Dublin Core Rights)
