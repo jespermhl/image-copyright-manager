@@ -93,8 +93,51 @@ Yes! Version 1.4.0 introduces automatic metadata extraction. When you upload an 
 
 == Upgrade Notice ==
 
+= 1.4.0 =
+New Feature: Automatic metadata extraction from Lightroom and other photo software. Now you can save time by letting the plugin read your EXIF/IPTC/XMP data on upload!
+
 = 1.3.1 =
 This is a security release that addresses a potential XSS vulnerability in the JSON-LD output. All users are strongly encouraged to update immediately.
+
+= 1.2.1 =
+Fixed build process to exclude development files.
+
+= 1.2.0 =
+Major update: Moved copyright field to Media Modal, improved performance, and robustness.
+
+= 1.1.3 =
+This update adds a CSS toggle setting and improves user control over plugin styling behavior.
+
+= 1.1.2 =
+This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.
+
+= 1.1.1 =
+This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.
+
+= 1.1.0 =
+This update migrates copyright information to a custom database table for much better performance and scalability. All old taxonomy code has been removed. Please back up your database before upgrading.
+
+= 1.0.6 =
+This update addresses WordPress Plugin Directory submission requirements and resolves ownership verification issues. The plugin now includes all required headers and follows WordPress coding standards for directory submission.
+
+= 1.0.5 =
+This update enhances the shortcode with new customization options. The default heading is now "Image Sources" and you can customize all text elements using new parameters like heading, heading_tag, no_sources_text, copyright_label, and view_media_text.
+
+= 1.0.4 =
+This update fixes translation file naming to follow WordPress standards, ensuring proper translation loading across all locales.
+
+= 1.0.3 =
+This update adds German translation support and fixes translation loading issues. The plugin now automatically updates stored settings when the language changes and includes a manual refresh option in the settings page.
+
+= 1.0.2 =
+This update adds a new per-image copyright display feature with global settings. Users can now choose to display copyright text under individual images and customize the display format globally through Settings > Image Copyright.
+
+= 1.0.1 =
+This update includes important text domain fixes and function prefix changes. The shortcode has been updated from [wpimc] to [icm]. Please update any existing shortcodes in your content.
+
+= 1.0.0 =
+Initial release of Image Copyright Manager plugin.
+
 
 == Changelog ==
 
@@ -142,43 +185,4 @@ This is a security release that addresses a potential XSS vulnerability in the J
 
 Please refer to the CHANGELOG.txt file for the complete changelog.
 
-== Upgrade Notice ==
-
-= 1.2.1 =
-Fixed build process to exclude development files.
-
-= 1.2.0 =
-Major update: Moved copyright field to Media Modal, improved performance, and robustness.
-
-= 1.1.3 =
-This update adds a CSS toggle setting and improves user control over plugin styling behavior.
-
-= 1.1.2 =
-This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.
-
-= 1.1.1 =
-This update includes bug fixes and minor improvements. The translation template has been updated for better internationalization support.
-
-= 1.1.0 =
-This update migrates copyright information to a custom database table for much better performance and scalability. All old taxonomy code has been removed. Please back up your database before upgrading.
-
-= 1.0.6 =
-This update addresses WordPress Plugin Directory submission requirements and resolves ownership verification issues. The plugin now includes all required headers and follows WordPress coding standards for directory submission.
-
-= 1.0.5 =
-This update enhances the shortcode with new customization options. The default heading is now "Image Sources" and you can customize all text elements using new parameters like heading, heading_tag, no_sources_text, copyright_label, and view_media_text.
-
-= 1.0.4 =
-This update fixes translation file naming to follow WordPress standards, ensuring proper translation loading across all locales.
-
-= 1.0.3 =
-This update adds German translation support and fixes translation loading issues. The plugin now automatically updates stored settings when the language changes and includes a manual refresh option in the settings page.
-
-= 1.0.2 =
-This update adds a new per-image copyright display feature with global settings. Users can now choose to display copyright text under individual images and customize the display format globally through Settings > Image Copyright.
-
-= 1.0.1 =
-This update includes important text domain fixes and function prefix changes. The shortcode has been updated from [wpimc] to [icm]. Please update any existing shortcodes in your content.
-
-= 1.0.0 =
-Initial release of Image Copyright Manager plugin. 
+ 
