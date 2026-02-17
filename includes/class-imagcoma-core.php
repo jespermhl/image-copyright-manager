@@ -54,10 +54,16 @@ class IMAGCOMA_Core {
     }
     
     /**
-     * Returns the default plugin settings.
+     * Get the plugin's default settings.
+     *
+     * The defaults include:
+     * - 'display_text': translated string 'Copyright: {copyright}'
+     * - 'enable_css': 1
+     * - 'enable_json_ld': 1
+     * - 'enable_auto_extract': 1
      *
      * @since 1.3.1
-     * @return array Default settings.
+     * @return array Associative array of default plugin settings keyed by setting name.
      */
     public static function get_default_settings() {
         return array(
