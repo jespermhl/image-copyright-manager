@@ -1,8 +1,8 @@
-name: Deploy to WordPress.org
+name: Build and Deploy
 
 on:
   release:
-    types: [published]
+    types: [published, prereleased]
 
 jobs:
   deploy:
@@ -27,7 +27,16 @@ jobs:
     - name: Build
       run: pnpm run build
 
+    - name: Upload Release Asset
+      uses: softprops/action-gh-release@v2
+      if: github.event_name == 'release'
+      with:
+        files: image-copyright-manager.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: WordPress Plugin Deploy
+      if: github.event.release.prerelease == false
       uses: 10up/action-wordpress-plugin-deploy@stable
       env:
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}

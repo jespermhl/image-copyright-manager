@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,7 +93,7 @@ Yes! Version 1.4.0 introduces automatic metadata extraction. When you upload an 
 
 == Upgrade Notice ==
 
-= 1.4.0 =
+= 1.4.0-beta.1 =
 New Feature: Automatic metadata extraction from Lightroom and other photo software. Now you can save time by letting the plugin read your EXIF/IPTC/XMP data on upload!
 
 = 1.3.1 =
@@ -141,7 +141,7 @@ Initial release of Image Copyright Manager plugin.
 
 == Changelog ==
 
-= 1.4.0 =
+= 1.4.0-beta.1 =
 * Added: Automatic metadata extraction (EXIF, IPTC, XMP) on image upload.
 * Added: Support for Lightroom metadata mapping (dc:rights, creator, etc.).
 * Added: "Auto-Extract Metadata" toggle in settings.
