@@ -9,6 +9,8 @@ Image Copyright Manager adds a custom field for copyright information to WordPre
 ## Features
 
 *   **Add copyright information** to any media file in WordPress
+*   **Automatic Metadata Extraction** (EXIF, IPTC, XMP) from Lightroom and other software
+*   **Complete Google Image SEO support** (Creator, Copyright Notice, etc.)
 *   **Support for HTML links** in copyright information
 *   **Integrated into Media Modal** and Edit Media screen
 *   **Shortcode** to display all media with copyright information
@@ -30,6 +32,15 @@ Image Copyright Manager adds a custom field for copyright information to WordPre
 3.  You'll see a "Copyright Info" field in the sidebar
 4.  Enter the copyright details and it saves automatically (or click Update)
 5.  You can include HTML links using tags like `<a href="https://example.com">Link Text</a>`
+
+### Automatic Metadata Extraction
+
+The plugin can automatically extract copyright information from image files when they are uploaded. This is particularly useful for workflows using Adobe Lightroom or other photo editing software.
+
+1.  Enable **Auto-Extract Metadata** in the plugin settings (Settings -> Image Copyright).
+2.  Upload your images as usual.
+3.  The plugin will automatically read EXIF, IPTC, and XMP metadata (like dc:rights, creator, etc.) and populate the copyright fields.
+4.  Note: This only happens for new uploads and will not overwrite fields that already have data.
 
 ### Displaying Copyright Info
 
