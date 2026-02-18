@@ -32,11 +32,9 @@ jobs:
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
-      if: github.event_name == 'release'
       with:
         files: image-copyright-manager.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: WordPress Plugin Deploy
       if: github.event.release.prerelease == false
