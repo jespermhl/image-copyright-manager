@@ -5,6 +5,12 @@
  * @package Image_Copyright_Manager
  */
 
+// Load Composer autoloader for dev dependencies (PHPUnit Polyfills, etc.)
+$plugin_autoload = dirname( __DIR__ ) . '/vendor/autoload.php';
+if ( file_exists( $plugin_autoload ) ) {
+	require_once $plugin_autoload;
+}
+
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {
