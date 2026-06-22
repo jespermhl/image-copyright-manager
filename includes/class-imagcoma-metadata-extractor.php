@@ -221,39 +221,27 @@ class IMAGCOMA_Metadata_Extractor {
      * @return array|false XMP data or false on failure.
      */
     private function read_xmp_data( $file ) {
+        global $wp_filesystem;
+
         if ( ! is_readable( $file ) ) {
             return false;
         }
-        
-        $handle = fopen( $file, 'rb' );
-        
-        if ( ! $handle ) {
+
+        if ( ! function_exists( 'WP_Filesystem' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+        }
+
+        WP_Filesystem();
+
+        $contents = $wp_filesystem->get_contents( $file );
+
+        if ( false === $contents ) {
             return false;
         }
-        
-        // Read in chunks to find XMP data without loading entire file
-        $chunk_size = 262144; // 256KB chunks
-        $max_read = 2097152; // Max 2MB to search for XMP
-        $buffer = '';
-        $total_read = 0;
-        
-        while ( ! feof( $handle ) && $total_read < $max_read ) {
-            $chunk = fread( $handle, $chunk_size );
-            if ( false === $chunk ) {
-                fclose( $handle );
-                return false;
-            }
-            
-            $buffer .= $chunk;
-            $total_read += strlen( $chunk );
-            
-            // Check if we have the complete XMP packet
-            if ( strpos( $buffer, '</x:xmpmeta>' ) !== false ) {
-                break;
-            }
-        }
-        
-        fclose( $handle );
+
+        // Only search first 2MB for XMP data to avoid loading large files into memory
+        $buffer = substr( $contents, 0, 2097152 );
+        unset( $contents );
         
         $xmp_data = array();
         

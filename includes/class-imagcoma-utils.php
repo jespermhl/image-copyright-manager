@@ -52,7 +52,7 @@ class IMAGCOMA_Utils {
         }
 
         global $wpdb;
-        $row = $wpdb->get_row( $wpdb->prepare( "SELECT copyright_text, creator, copyright_notice, credit_text, license_url, acquire_license_url FROM {$wpdb->prefix}imagcoma_copyright WHERE attachment_id = %d", $attachment_id ) );
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT copyright_text, creator, copyright_notice, credit_text, license_url, acquire_license_url FROM {$wpdb->prefix}imagcoma_copyright WHERE attachment_id = %d", $attachment_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom table with object cache
         $display_copyright = get_post_meta( $attachment_id, '_imagcoma_display_copyright', true );
         
         $data = array(
@@ -152,7 +152,7 @@ class IMAGCOMA_Utils {
         global $wpdb;
         $table_name = $wpdb->prefix . 'imagcoma_copyright';
 
-        $wpdb->replace(
+        $wpdb->replace( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom table write with cache invalidation
             $table_name,
             array(
                 'attachment_id'       => $attachment_id,
@@ -197,7 +197,7 @@ class IMAGCOMA_Utils {
         $cache_key = 'imagcoma_attachments_with_copyright';
         $results = wp_cache_get( $cache_key, 'imagcoma' );
         if ( false === $results ) {
-            $results = $wpdb->get_results( 
+            $results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom table with object cache
                 $wpdb->prepare(
                     "SELECT attachment_id, copyright_text FROM {$wpdb->prefix}imagcoma_copyright WHERE copyright_text != %s",
                     ''
