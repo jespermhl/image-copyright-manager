@@ -2,7 +2,7 @@
     "name": "mahelwebdesign/image-copyright-manager",
     "description": "Adds a custom field for copyright information to WordPress media.",
     "type": "wordpress-plugin",
-    "license": "GPL-2.0-or-later",
+    "license": "GPL-2.0",
     "require": {
         "php": ">=7.4"
     },
