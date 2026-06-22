@@ -201,6 +201,10 @@ class IMAGCOMA_Metadata_Extractor {
      * @return array|false IPTC data or false on failure.
      */
     private function read_iptc_data( $file ) {
+        if ( ! is_readable( $file ) ) {
+            return false;
+        }
+
         // We only need $info, return value is intentionally ignored
         getimagesize( $file, $info );
         
