@@ -12,15 +12,63 @@ if ( ! defined( 'ABSPATH' ) ) {
 class IMAGCOMA_Admin_Columns {
 
 	/**
+	 * Whether the current WP version uses DataViews for the Media screen.
+	 *
+	 * @var bool|null
+	 */
+	private static $dataviews_active = null;
+
+	/**
 	 * Constructor.
-	 * Initializes hooks for admin columns.
+	 * Initializes hooks for admin columns, supporting both legacy and DataViews (WP 7.0+).
 	 */
 	public function __construct() {
-		add_filter( 'manage_media_columns', array( $this, 'add_copyright_column' ) );
-		add_action( 'manage_media_custom_column', array( $this, 'display_copyright_column' ), 10, 2 );
-		add_filter( 'manage_upload_sortable_columns', array( $this, 'register_sortable_column' ) );
-		add_filter( 'posts_join_paged', array( $this, 'copyright_column_join' ), 10, 2 );
-		add_filter( 'posts_orderby', array( $this, 'copyright_column_orderby' ), 10, 2 );
+		if ( self::is_dataviews_active() ) {
+			add_filter( 'wp_dataviews_attachment_list_columns', array( $this, 'add_dataviews_copyright_column' ) );
+		} else {
+			add_filter( 'manage_media_columns', array( $this, 'add_copyright_column' ) );
+			add_action( 'manage_media_custom_column', array( $this, 'display_copyright_column' ), 10, 2 );
+			add_filter( 'manage_upload_sortable_columns', array( $this, 'register_sortable_column' ) );
+			add_filter( 'posts_join_paged', array( $this, 'copyright_column_join' ), 10, 2 );
+			add_filter( 'posts_orderby', array( $this, 'copyright_column_orderby' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Detects whether DataViews is active for the Media screen (WP 7.0+).
+	 *
+	 * @return bool
+	 */
+	public static function is_dataviews_active() {
+		if ( null !== self::$dataviews_active ) {
+			return self::$dataviews_active;
+		}
+		self::$dataviews_active = version_compare( $GLOBALS['wp_version'], '7.0', '>=' );
+		return self::$dataviews_active;
+	}
+
+	/**
+	 * Registers the copyright column for WP 7.0+ DataViews.
+	 *
+	 * @param array $columns DataViews column definitions.
+	 * @return array Modified column definitions.
+	 */
+	public function add_dataviews_copyright_column( $columns ) {
+		$columns['imagcoma_copyright'] = array(
+			'label'  => __( 'Copyright', 'image-copyright-manager' ),
+			'render' => function ( $post ) {
+				if ( ! is_object( $post ) || ! isset( $post->ID ) ) {
+					return '<span aria-hidden="true">—</span>';
+				}
+				$copyright_data = IMAGCOMA_Utils::get_copyright_info( $post->ID );
+				$copyright      = $copyright_data['copyright'] ?? '';
+				if ( ! empty( $copyright ) ) {
+					return wp_kses_post( $copyright );
+				}
+				return '<span aria-hidden="true">—</span>';
+			},
+		);
+		return $columns;
 	}
 
 	/**

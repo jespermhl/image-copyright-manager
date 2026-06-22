@@ -5,6 +5,12 @@
  * @package Image_Copyright_Manager
  */
 
+// Load Composer autoloader for dev dependencies (PHPUnit Polyfills, etc.)
+$plugin_autoload = dirname( __DIR__ ) . '/vendor/autoload.php';
+if ( file_exists( $plugin_autoload ) ) {
+	require_once $plugin_autoload;
+}
+
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {
@@ -24,6 +30,7 @@ require_once $_tests_dir . '/includes/functions.php';
  */
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/image-copyright-manager.php';
+	imagcoma_create_copyright_table();
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

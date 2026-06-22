@@ -132,7 +132,9 @@ class IMAGCOMA_Display {
             // We need to handle HTML in copyright text safely
             $safe_html = wp_kses_post( $copyright_text );
             $temp_dom = new DOMDocument();
-            @$temp_dom->loadHTML( '<?xml encoding="UTF-8"><div>' . $safe_html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+            if ( $temp_dom->loadHTML( '<?xml encoding="UTF-8"><div>' . $safe_html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD ) === false ) {
+                continue;
+            }
             $container = $temp_dom->getElementsByTagName( 'div' )->item( 0 );
             if ( $container ) {
                 foreach ( $container->childNodes as $node ) {

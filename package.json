@@ -7,7 +7,8 @@
         "build": "wp-scripts plugin-zip",
         "makepot": "wp-pot --src '**/*.php' --dest-file 'languages/image-copyright-manager.pot' --package 'Image Copyright Manager' --domain 'image-copyright-manager'",
         "deploy": "./bin/deploy.sh",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "lint:php": "find . -name '*.php' -not -path './node_modules/*' -not -path './tests/*' -print0 | xargs -0 -n1 php -l",
+        "test": "pnpm run lint:php"
     },
     "keywords": [
         "wordpress",

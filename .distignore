@@ -13,11 +13,12 @@ package.json
 package-lock.json
 pnpm-lock.yaml
 node_modules
+vendor
 bin
 tests
 phpunit.xml.dist
 README.md
-CHANGELOG.md
+# CHANGELOG.txt intentionally NOT excluded — readme.txt references it.
 
 # Source files (if you have a src directory, otherwise adjust)
 src
