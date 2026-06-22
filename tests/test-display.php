@@ -79,7 +79,7 @@ class DisplayTest extends WP_UnitTestCase {
 		
 		// The actual escaping happens during output in output_json_ld() using wp_json_encode with security flags.
 		// So we verify the data is collected correctly here.
-		$json_output = wp_json_encode( $data, JSON_HEX_TAG );
+		$json_output = wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_HEX_APOS );
 		$this->assertStringNotContainsString( '</script>', $json_output );
 		$this->assertStringContainsString( '\u003C/script\u003E', $json_output );
 	}
