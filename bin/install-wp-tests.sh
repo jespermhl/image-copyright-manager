@@ -35,23 +35,25 @@ if [ ! -d "$WP_CORE_DIR" ]; then
 	ARCHIVE_PATH="${TMPDIR}/wordpress.tar.gz"
 
 	curl -sL "$ARCHIVE_URL" -o "$ARCHIVE_PATH"
-	curl -sL "$CHECKSUM_URL" -o "${ARCHIVE_PATH}.md5"
+	expected=$(curl -sL "$CHECKSUM_URL" | tr -d '[:space:]')
 
-	if command -v md5sum &>/dev/null; then
-		md5sum -c "${ARCHIVE_PATH}.md5"
-	elif command -v md5 &>/dev/null; then
-		expected=$(cat "${ARCHIVE_PATH}.md5")
-		actual=$(md5 -q "$ARCHIVE_PATH")
+	if [ -n "$expected" ]; then
+		if command -v md5sum &>/dev/null; then
+			actual=$(md5sum "$ARCHIVE_PATH" | cut -d' ' -f1)
+		elif command -v md5 &>/dev/null; then
+			actual=$(md5 -q "$ARCHIVE_PATH")
+		else
+			echo "No md5 tool available, skipping checksum verification" >&2
+			actual="$expected"
+		fi
 		if [ "$expected" != "$actual" ]; then
 			echo "Checksum mismatch for WordPress archive" >&2
 			exit 1
 		fi
-	else
-		echo "No md5 tool available, skipping checksum verification" >&2
 	fi
 
 	tar xz -C "$TMPDIR" -f "$ARCHIVE_PATH"
-	rm -f "$ARCHIVE_PATH" "${ARCHIVE_PATH}.md5"
+	rm -f "$ARCHIVE_PATH"
 fi
 
 # Set up WordPress config
