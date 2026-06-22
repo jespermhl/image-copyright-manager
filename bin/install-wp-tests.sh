@@ -78,7 +78,6 @@ if [ ! -d "$WP_TESTS_DIR" ]; then
 
 	svn co --quiet "https://develop.svn.wordpress.org/tags/${SVN_BRANCH}/tests/phpunit/includes/" "$WP_TESTS_DIR/includes"
 	svn co --quiet "https://develop.svn.wordpress.org/tags/${SVN_BRANCH}/tests/phpunit/data/" "$WP_TESTS_DIR/data"
-	svn co --quiet "https://develop.svn.wordpress.org/tags/${SVN_BRANCH}/tests/phpunit/src/" "$WP_TESTS_DIR/src"
 fi
 
 # Create test config
@@ -89,4 +88,6 @@ if [ ! -f "$WP_TESTS_DIR/wp-tests-config.php" ]; then
 	sed "${SED_INPLACE[@]}" "s/password_here/$DB_PASS/" "$WP_TESTS_DIR/wp-tests-config.php"
 	sed "${SED_INPLACE[@]}" "s/localhost/$DB_HOST/" "$WP_TESTS_DIR/wp-tests-config.php"
 	sed "${SED_INPLACE[@]}" "s/wp_phpunit_tests/wptests_/" "$WP_TESTS_DIR/wp-tests-config.php"
+	# Override ABSPATH to point to the WordPress core directory (not the non-existent tests/src/)
+	sed "${SED_INPLACE[@]}" "s|dirname( __FILE__ ) . '/src/'|'${WP_CORE_DIR}/'|" "$WP_TESTS_DIR/wp-tests-config.php"
 fi
