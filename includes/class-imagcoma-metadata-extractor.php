@@ -21,7 +21,7 @@ class IMAGCOMA_Metadata_Extractor {
      */
     public function __construct() {
         add_action( 'add_attachment', array( $this, 'extract_metadata_on_upload' ) );
-        add_filter( 'wp_generate_attachment_metadata', array( $this, 'extract_metadata_after_generation' ), 10, 2 );
+        add_filter( 'wp_generate_attachment_metadata', array( $this, 'extract_metadata_after_generation' ), 10, 3 );
     }
     
     /**
@@ -45,7 +45,7 @@ class IMAGCOMA_Metadata_Extractor {
      * @param int   $attachment_id Attachment ID.
      * @return array Unmodified metadata.
      */
-    public function extract_metadata_after_generation( $metadata, $attachment_id ) {
+    public function extract_metadata_after_generation( $metadata, $attachment_id, $context = 'create' ) {
         // Only process images
         if ( ! wp_attachment_is_image( $attachment_id ) ) {
             return $metadata;
@@ -221,7 +221,11 @@ class IMAGCOMA_Metadata_Extractor {
      * @return array|false XMP data or false on failure.
      */
     private function read_xmp_data( $file ) {
-        $handle = @fopen( $file, 'rb' );
+        if ( ! is_readable( $file ) ) {
+            return false;
+        }
+        
+        $handle = fopen( $file, 'rb' );
         
         if ( ! $handle ) {
             return false;
@@ -259,23 +263,23 @@ class IMAGCOMA_Metadata_Extractor {
             
             // Extract dc:rights (Dublin Core Rights)
             if ( preg_match( '/<dc:rights>.*?<rdf:Alt>.*?<rdf:li[^>]*>(.*?)<\/rdf:li>/s', $xmp, $rights_match ) ) {
-                $xmp_data['rights'] = trim( strip_tags( $rights_match[1] ) );
+                $xmp_data['rights'] = trim( wp_strip_all_tags( $rights_match[1] ) );
             }
             
             // Extract dc:creator
             if ( preg_match( '/<dc:creator>.*?<rdf:Seq>.*?<rdf:li>(.*?)<\/rdf:li>/s', $xmp, $creator_match ) ) {
-                $xmp_data['creator'] = trim( strip_tags( $creator_match[1] ) );
+                $xmp_data['creator'] = trim( wp_strip_all_tags( $creator_match[1] ) );
             }
             
             // Extract photoshop:Credit
             if ( preg_match( '/<photoshop:Credit>(.*?)<\/photoshop:Credit>/s', $xmp, $credit_match ) ) {
-                $xmp_data['credit'] = trim( strip_tags( $credit_match[1] ) );
+                $xmp_data['credit'] = trim( wp_strip_all_tags( $credit_match[1] ) );
             }
             
             // Extract xmpRights:UsageTerms (Lightroom uses this)
             if ( preg_match( '/<xmpRights:UsageTerms>.*?<rdf:Alt>.*?<rdf:li[^>]*>(.*?)<\/rdf:li>/s', $xmp, $usage_match ) ) {
                 if ( empty( $xmp_data['rights'] ) ) {
-                    $xmp_data['rights'] = trim( strip_tags( $usage_match[1] ) );
+                    $xmp_data['rights'] = trim( wp_strip_all_tags( $usage_match[1] ) );
                 }
             }
         }

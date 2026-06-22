@@ -174,6 +174,14 @@ class IMAGCOMA_Utils {
             )
         );
 
+        // Sync to post meta for REST API access (required by WP 7.0+ DataViews)
+        update_post_meta( $attachment_id, 'imagcoma_copyright', $copyright_text );
+        update_post_meta( $attachment_id, 'imagcoma_creator', $creator );
+        update_post_meta( $attachment_id, 'imagcoma_copyright_notice', $copyright_notice );
+        update_post_meta( $attachment_id, 'imagcoma_credit_text', $credit_text );
+        update_post_meta( $attachment_id, 'imagcoma_license_url', $license_url );
+        update_post_meta( $attachment_id, 'imagcoma_acquire_license_url', $acquire_license_url );
+
         wp_cache_delete( 'imagcoma_copyright_' . $attachment_id, 'imagcoma' );
         wp_cache_delete( 'imagcoma_attachments_with_copyright', 'imagcoma' );
     }

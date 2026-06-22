@@ -1,4 +1,4 @@
-name: Lint
+name: Lint & Test
 
 on:
   push:
@@ -7,30 +7,73 @@ on:
     branches: [ main, master ]
 
 jobs:
-  lint:
+  php-lint:
+    name: PHP Syntax Check
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 10
+      - name: Validate PHP syntax
+        run: |
+          find . -name '*.php' \
+            -not -path './node_modules/*' \
+            -print0 | xargs -0 -n1 php -l
 
-    - name: Install dependencies
-      run: pnpm install
+  test:
+    name: PHPUnit Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # Assuming you might add lint scripts later, or if you have them.
-    # For now, we'll just check if the build works as a basic sanity check.
-    # If you have 'npm run lint', uncomment the next lines.
-    # - name: Lint
-    #   run: pnpm run lint
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer, phpunit:^9
 
-    - name: Build Test
-      run: pnpm run build
+      - name: Install WordPress test suite
+        run: |
+          bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
+
+      - name: Run PHPUnit
+        run: phpunit
+
+  build:
+    name: Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build production zip
+        run: pnpm run build

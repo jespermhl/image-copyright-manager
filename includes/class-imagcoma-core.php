@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Core {
 
-    const VERSION = '1.4.0';
+    const VERSION = '1.5.0';
     
     const TEXT_DOMAIN = 'image-copyright-manager';
     
@@ -27,7 +27,33 @@ class IMAGCOMA_Core {
      */
     private function init_hooks() {
         add_action( 'init', array( $this, 'init' ) );
+        add_action( 'init', array( $this, 'register_copyright_meta' ) );
         add_action( 'admin_init', array( $this, 'check_version' ) );
+    }
+
+    /**
+     * Registers copyright fields as attachment meta for REST API access.
+     * This enables DataViews (WP 7.0+) to read copyright data for the Media Library.
+     */
+    public function register_copyright_meta() {
+        $fields = array(
+            'imagcoma_copyright',
+            'imagcoma_creator',
+            'imagcoma_copyright_notice',
+            'imagcoma_credit_text',
+            'imagcoma_license_url',
+            'imagcoma_acquire_license_url',
+        );
+        foreach ( $fields as $field ) {
+            register_post_meta( 'attachment', $field, array(
+                'type'        => 'string',
+                'single'      => true,
+                'show_in_rest' => true,
+                'auth_callback' => function () {
+                    return current_user_can( 'upload_files' );
+                },
+            ) );
+        }
     }
 
     /**

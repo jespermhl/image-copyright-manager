@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-06-22
+### Added
+- Added WordPress 7.0 DataViews compatibility for the Media Library copyright column.
+- Added post meta registration for copyright fields to enable REST API access and DataViews integration.
+
+### Changed
+- Updated `readme.txt` to `Tested up to: 7.0`.
+
+### Fixed
+- Replaced `strip_tags()` with `wp_strip_all_tags()` for WordPress Coding Standards compliance.
+- Replaced error suppression operator (`@`) with proper `is_readable()` checks and error handling.
+- Updated `wp_generate_attachment_metadata` filter callback to accept the new `$context` parameter (WP 7.0+).
+
 ## [1.4.0] - 2026-02-18
 ### Added
 - Added automatic metadata extraction (EXIF, IPTC, XMP) on image upload.

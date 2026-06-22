@@ -17,7 +17,7 @@ bin
 tests
 phpunit.xml.dist
 README.md
-CHANGELOG.md
+CHANGELOG.txt
 
 # Source files (if you have a src directory, otherwise adjust)
 src
