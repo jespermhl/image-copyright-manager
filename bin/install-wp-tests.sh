@@ -78,6 +78,7 @@ if [ ! -d "$WP_TESTS_DIR" ]; then
 
 	svn co --quiet "https://develop.svn.wordpress.org/tags/${SVN_BRANCH}/tests/phpunit/includes/" "$WP_TESTS_DIR/includes"
 	svn co --quiet "https://develop.svn.wordpress.org/tags/${SVN_BRANCH}/tests/phpunit/data/" "$WP_TESTS_DIR/data"
+	svn co --quiet "https://develop.svn.wordpress.org/tags/${SVN_BRANCH}/tests/phpunit/src/" "$WP_TESTS_DIR/src"
 fi
 
 # Create test config
