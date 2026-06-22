@@ -133,7 +133,6 @@ class IMAGCOMA_Display {
             $safe_html = wp_kses_post( $copyright_text );
             $temp_dom = new DOMDocument();
             if ( $temp_dom->loadHTML( '<?xml encoding="UTF-8"><div>' . $safe_html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD ) === false ) {
-                libxml_use_internal_errors( $internal_errors );
                 continue;
             }
             $container = $temp_dom->getElementsByTagName( 'div' )->item( 0 );

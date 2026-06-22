@@ -43,8 +43,7 @@ class IMAGCOMA_Admin_Columns {
 		if ( null !== self::$dataviews_active ) {
 			return self::$dataviews_active;
 		}
-		self::$dataviews_active = function_exists( 'wp_is_client_side_media_processing_enabled' )
-			|| version_compare( $GLOBALS['wp_version'], '7.0', '>=' );
+		self::$dataviews_active = version_compare( $GLOBALS['wp_version'], '7.0', '>=' );
 		return self::$dataviews_active;
 	}
 
@@ -58,6 +57,9 @@ class IMAGCOMA_Admin_Columns {
 		$columns['imagcoma_copyright'] = array(
 			'label'  => __( 'Copyright', 'image-copyright-manager' ),
 			'render' => function ( $post ) {
+				if ( ! is_object( $post ) || ! isset( $post->ID ) ) {
+					return '<span aria-hidden="true">—</span>';
+				}
 				$copyright_data = IMAGCOMA_Utils::get_copyright_info( $post->ID );
 				$copyright      = $copyright_data['copyright'] ?? '';
 				if ( ! empty( $copyright ) ) {
