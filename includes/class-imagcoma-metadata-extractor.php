@@ -41,8 +41,9 @@ class IMAGCOMA_Metadata_Extractor {
     /**
      * Extracts copyright metadata after WordPress generates attachment metadata.
      *
-     * @param array $metadata      Attachment metadata.
-     * @param int   $attachment_id Attachment ID.
+     * @param array  $metadata      Attachment metadata.
+     * @param int    $attachment_id Attachment ID.
+     * @param string $context       The context of metadata generation. Default 'create'.
      * @return array Unmodified metadata.
      */
     public function extract_metadata_after_generation( $metadata, $attachment_id, $context = 'create' ) {
@@ -221,27 +222,24 @@ class IMAGCOMA_Metadata_Extractor {
      * @return array|false XMP data or false on failure.
      */
     private function read_xmp_data( $file ) {
-        global $wp_filesystem;
-
         if ( ! is_readable( $file ) ) {
             return false;
         }
 
-        if ( ! function_exists( 'WP_Filesystem' ) ) {
-            require_once ABSPATH . 'wp-admin/includes/file.php';
-        }
+        $buffer = '';
 
-        WP_Filesystem();
-
-        $contents = $wp_filesystem->get_contents( $file );
-
-        if ( false === $contents ) {
+        $handle = fopen( $file, 'rb' );
+        if ( false === $handle ) {
             return false;
         }
 
-        // Only search first 2MB for XMP data to avoid loading large files into memory
-        $buffer = substr( $contents, 0, 2097152 );
-        unset( $contents );
+        // Only read first 2MB for XMP data to avoid loading large files into memory
+        $buffer = fread( $handle, 2097152 );
+        fclose( $handle );
+
+        if ( false === $buffer || '' === $buffer ) {
+            return false;
+        }
         
         $xmp_data = array();
         

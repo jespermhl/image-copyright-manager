@@ -81,13 +81,11 @@ if [ ! -d "$WP_TESTS_DIR" ]; then
 fi
 
 # Create test config
-if [ ! -f "$WP_TESTS_DIR/wp-tests-config.php" ]; then
-	curl -sL "https://develop.svn.wordpress.org/trunk/wp-tests-config-sample.php" > "$WP_TESTS_DIR/wp-tests-config.php"
-	sed "${SED_INPLACE[@]}" "s/database_name_here/$DB_NAME/" "$WP_TESTS_DIR/wp-tests-config.php"
-	sed "${SED_INPLACE[@]}" "s/username_here/$DB_USER/" "$WP_TESTS_DIR/wp-tests-config.php"
-	sed "${SED_INPLACE[@]}" "s/password_here/$DB_PASS/" "$WP_TESTS_DIR/wp-tests-config.php"
-	sed "${SED_INPLACE[@]}" "s/localhost/$DB_HOST/" "$WP_TESTS_DIR/wp-tests-config.php"
-	sed "${SED_INPLACE[@]}" "s/wp_phpunit_tests/wptests_/" "$WP_TESTS_DIR/wp-tests-config.php"
-	# Override ABSPATH to point to the WordPress core directory (not the non-existent tests/src/)
-	sed "${SED_INPLACE[@]}" "s|dirname( __FILE__ ) . '/src/'|'${WP_CORE_DIR}/'|" "$WP_TESTS_DIR/wp-tests-config.php"
-fi
+curl -sL "https://develop.svn.wordpress.org/trunk/wp-tests-config-sample.php" > "$WP_TESTS_DIR/wp-tests-config.php"
+sed "${SED_INPLACE[@]}" "s/youremptytestdbnamehere/$DB_NAME/" "$WP_TESTS_DIR/wp-tests-config.php"
+sed "${SED_INPLACE[@]}" "s/yourusernamehere/$DB_USER/" "$WP_TESTS_DIR/wp-tests-config.php"
+sed "${SED_INPLACE[@]}" "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR/wp-tests-config.php"
+sed "${SED_INPLACE[@]}" "s/localhost/$DB_HOST/" "$WP_TESTS_DIR/wp-tests-config.php"
+sed "${SED_INPLACE[@]}" "s/wp_phpunit_tests/wptests_/" "$WP_TESTS_DIR/wp-tests-config.php"
+# Override ABSPATH to point to the WordPress core directory (not the non-existent tests/src/)
+sed "${SED_INPLACE[@]}" "s|dirname( __FILE__ ) . '/src/'|'${WP_CORE_DIR}/'|" "$WP_TESTS_DIR/wp-tests-config.php"
