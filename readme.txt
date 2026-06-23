@@ -4,7 +4,7 @@ Tags: media, copyright, images, attachments, metadata
 Requires at least: 6.4
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ Yes! Version 1.4.0 introduces automatic metadata extraction. When you upload an 
 
 == Upgrade Notice ==
 
+= 1.6.0 =
+Improved shortcode sorting, updated dependencies, and minor code quality fixes.
+
 = 1.4.0 =
 New Feature: Automatic metadata extraction from Lightroom and other photo software. Now you can save time by letting the plugin read your EXIF/IPTC/XMP data on upload!
 
@@ -140,6 +143,14 @@ Initial release of Image Copyright Manager plugin.
 
 
 == Changelog ==
+
+= 1.6.0 =
+* Added: Proper sorting support for the `[imagcoma]` shortcode `orderby` and `order` parameters (`date`, `title`, `attachment_id`, `copyright_text`).
+* Added: PHPCS configuration (`.phpcs.xml.dist`) for WordPress Coding Standards.
+* Changed: Updated `@wordpress/scripts` from ^26.0.0 to ^32.1.0.
+* Fixed: Made `$processed_attachments` private for proper encapsulation.
+* Fixed: `package.json` version now in sync with plugin header.
+* Fixed: `bin/install-wp-tests.sh` now dynamically detects the latest WordPress SVN tag.
 
 = 1.4.0 =
 * Added: Automatic metadata extraction (EXIF, IPTC, XMP) on image upload.
