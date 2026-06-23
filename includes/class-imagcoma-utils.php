@@ -253,27 +253,24 @@ class IMAGCOMA_Utils {
             'order'          => $order,
         ) );
 
-        // Re-sort results to match the post order
-        $id_order = array();
-        foreach ( $posts as $post ) {
-            $id_order[ $post->ID ] = true;
+        // Build an ID → row map for O(1) lookups
+        $row_map = array();
+        foreach ( $results as $row ) {
+            $row_map[ (int) $row->attachment_id ] = $row;
         }
 
+        // Collect rows in the order returned by get_posts
         $sorted = array();
-        // First add rows in the order returned by get_posts
-        foreach ( $id_order as $id => $_ ) {
-            foreach ( $results as $row ) {
-                if ( (int) $row->attachment_id === $id ) {
-                    $sorted[] = $row;
-                    break;
-                }
+        foreach ( $posts as $post ) {
+            $id = $post->ID;
+            if ( isset( $row_map[ $id ] ) ) {
+                $sorted[] = $row_map[ $id ];
+                unset( $row_map[ $id ] );
             }
         }
-        // Append any remaining IDs not returned by get_posts
-        foreach ( $results as $row ) {
-            if ( ! isset( $id_order[ (int) $row->attachment_id ] ) ) {
-                $sorted[] = $row;
-            }
+        // Append any remaining IDs not in get_posts result
+        foreach ( $row_map as $row ) {
+            $sorted[] = $row;
         }
 
         return $sorted;
