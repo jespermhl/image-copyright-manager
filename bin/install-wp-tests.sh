@@ -69,9 +69,14 @@ fi
 if [ ! -d "$WP_TESTS_DIR" ]; then
 	mkdir -p "$WP_TESTS_DIR"
 
-	# Use a stable branch matching the requested version; default to 6.9 for 'latest'
+	# Use a stable branch matching the requested version; default to latest stable for 'latest'
 	if [ "$WP_VERSION" == "latest" ]; then
-		SVN_BRANCH="6.9"
+		# Fetch the latest WordPress stable branch from the SVN tags
+		SVN_BRANCH=$(svn ls https://develop.svn.wordpress.org/tags/ 2>/dev/null | sort -V | tail -1 | tr -d '/')
+		if [ -z "$SVN_BRANCH" ]; then
+			echo "Warning: Failed to detect latest WP SVN tag, falling back to 6.9" >&2
+			SVN_BRANCH="6.9"
+		fi
 	else
 		SVN_BRANCH="$WP_VERSION"
 	fi

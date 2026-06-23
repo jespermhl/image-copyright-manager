@@ -194,22 +194,85 @@ class IMAGCOMA_Utils {
     /**
      * Gets all attachment IDs that have copyright information.
      *
+     * @param string $orderby Sort field: 'date', 'title', 'attachment_id', or 'copyright_text'.
+     * @param string $order   Sort direction: 'ASC' or 'DESC'.
      * @return array List of objects containing attachment_id and copyright_text.
      */
-    public static function get_attachments_with_copyright() {
+    public static function get_attachments_with_copyright( $orderby = 'date', $order = 'DESC' ) {
         global $wpdb;
-  
+
+        $allowed_orderby = array( 'attachment_id', 'date', 'title', 'copyright_text' );
+        $allowed_order   = array( 'ASC', 'DESC' );
+
+        $orderby = in_array( strtolower( $orderby ), $allowed_orderby, true ) ? strtolower( $orderby ) : 'date';
+        $order   = in_array( strtoupper( $order ), $allowed_order, true ) ? strtoupper( $order ) : 'DESC';
+
         $cache_key = 'imagcoma_attachments_with_copyright';
-        $results = wp_cache_get( $cache_key, 'imagcoma' );
+        $results   = wp_cache_get( $cache_key, 'imagcoma' );
         if ( false === $results ) {
             $results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom table with object cache
                 $wpdb->prepare(
                     "SELECT attachment_id, copyright_text FROM {$wpdb->prefix}imagcoma_copyright WHERE copyright_text != %s",
                     ''
-                ) 
+                )
             );
-            wp_cache_set( $cache_key, $results, 'imagcoma', HOUR_IN_SECONDS );
+            if ( is_array( $results ) ) {
+                wp_cache_set( $cache_key, $results, 'imagcoma', HOUR_IN_SECONDS );
+            }
         }
-        return $results;
+
+        if ( empty( $results ) ) {
+            return array();
+        }
+
+        // Fields available in the cached results
+        if ( in_array( $orderby, array( 'attachment_id', 'copyright_text' ), true ) ) {
+            usort( $results, function ( $a, $b ) use ( $orderby, $order ) {
+                if ( 'attachment_id' === $orderby ) {
+                    $cmp = $a->attachment_id - $b->attachment_id;
+                } else {
+                    $cmp = strcmp( $a->copyright_text, $b->copyright_text );
+                }
+                return 'ASC' === $order ? $cmp : -$cmp;
+            } );
+            return $results;
+        }
+
+        // For date or title ordering, fetch post data
+        $ids = wp_list_pluck( $results, 'attachment_id' );
+        if ( empty( $ids ) ) {
+            return array();
+        }
+
+        $posts = get_posts( array(
+            'post_type'      => 'attachment',
+            'post__in'       => $ids,
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+            'orderby'        => 'date' === $orderby ? 'date' : 'title',
+            'order'          => $order,
+        ) );
+
+        // Build an ID → row map for O(1) lookups
+        $row_map = array();
+        foreach ( $results as $row ) {
+            $row_map[ (int) $row->attachment_id ] = $row;
+        }
+
+        // Collect rows in the order returned by get_posts
+        $sorted = array();
+        foreach ( $posts as $post ) {
+            $id = $post->ID;
+            if ( isset( $row_map[ $id ] ) ) {
+                $sorted[] = $row_map[ $id ];
+                unset( $row_map[ $id ] );
+            }
+        }
+        // Append any remaining IDs not in get_posts result
+        foreach ( $row_map as $row ) {
+            $sorted[] = $row;
+        }
+
+        return $sorted;
     }
 } 
