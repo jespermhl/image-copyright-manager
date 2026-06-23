@@ -19,27 +19,36 @@ class DisplayTest extends WP_UnitTestCase {
 
 	public function tearDown(): void {
 		parent::tearDown();
-		IMAGCOMA_Display::$processed_attachments = array();
-		
-		// Reset emitted_ids using reflection
+
+		// Reset static properties using reflection
 		$reflection = new ReflectionClass( 'IMAGCOMA_Display' );
-		$prop = $reflection->getProperty( 'emitted_ids' );
-		$prop->setAccessible( true );
-		$prop->setValue( null, array() );
+		
+		$processed = $reflection->getProperty( 'processed_attachments' );
+		$processed->setAccessible( true );
+		$processed->setValue( null, array() );
+		
+		$emitted = $reflection->getProperty( 'emitted_ids' );
+		$emitted->setAccessible( true );
+		$emitted->setValue( null, array() );
 	}
 
 	/**
 	 * Test JSON-LD data collection.
 	 */
 	public function test_add_to_json_ld() {
-		IMAGCOMA_Display::$processed_attachments = array();
+		$reflection = new ReflectionClass( 'IMAGCOMA_Display' );
+		$prop = $reflection->getProperty( 'processed_attachments' );
+		$prop->setAccessible( true );
+		$prop->setValue( null, array() );
+
 		IMAGCOMA_Display::add_to_json_ld( 101 );
 		IMAGCOMA_Display::add_to_json_ld( 101 ); // Duplicate
 		IMAGCOMA_Display::add_to_json_ld( 102 );
 
-		$this->assertCount( 2, IMAGCOMA_Display::$processed_attachments );
-		$this->assertContains( 101, IMAGCOMA_Display::$processed_attachments );
-		$this->assertContains( 102, IMAGCOMA_Display::$processed_attachments );
+		$processed = $prop->getValue( null );
+		$this->assertCount( 2, $processed );
+		$this->assertContains( 101, $processed );
+		$this->assertContains( 102, $processed );
 	}
 
 	/**
@@ -88,13 +97,14 @@ class DisplayTest extends WP_UnitTestCase {
 	 * Test that duplicates are not emitted.
 	 */
 	public function test_no_duplicate_output() {
-		IMAGCOMA_Display::$processed_attachments = array( 101 );
-		
-		// Use reflection to set emitted_ids
 		$reflection = new ReflectionClass( 'IMAGCOMA_Display' );
-		$prop = $reflection->getProperty( 'emitted_ids' );
-		$prop->setAccessible( true );
-		$prop->setValue( null, array( 101 ) ); // Mark as already emitted
+		$processed = $reflection->getProperty( 'processed_attachments' );
+		$processed->setAccessible( true );
+		$processed->setValue( null, array( 101 ) );
+		
+		$emitted = $reflection->getProperty( 'emitted_ids' );
+		$emitted->setAccessible( true );
+		$emitted->setValue( null, array( 101 ) ); // Mark as already emitted
 
 		// Mock image data to avoid early return in foreach
 		// (get_image_schema_data would return false for ID 101 anyway, but we want to test the continue logic)

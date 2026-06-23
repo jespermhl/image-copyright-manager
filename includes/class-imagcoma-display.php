@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class IMAGCOMA_Display {
     
-    public static $processed_attachments = array();
+    private static $processed_attachments = array();
     
     /**
      * Track which attachment IDs have already been emitted in JSON-LD.

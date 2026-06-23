@@ -35,7 +35,7 @@ class IMAGCOMA_Shortcodes {
             'view_media_text' => __( 'View Media', 'image-copyright-manager' )
         ), $atts );
         
-        $attachments = IMAGCOMA_Utils::get_attachments_with_copyright();
+        $attachments = IMAGCOMA_Utils::get_attachments_with_copyright( $atts['orderby'], $atts['order'] );
         if ( empty( $attachments ) ) {
             return '<p>' . esc_html( $atts['no_sources_text'] ) . '</p>';
         }
